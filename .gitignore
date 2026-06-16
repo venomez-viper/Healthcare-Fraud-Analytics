@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+
+# Office temp/lock files
+~$*
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Build scripts and generated figures (excluded from repo)
+build_charts.py
+build_docs.py
+build_illustrations.py
+figures/
