@@ -18,7 +18,6 @@ import { Section, Kicker, Lantern } from "@/components/blocks";
 import { Meteors } from "@/components/ui/meteors";
 import { ShaderBackground } from "@/components/ui/animated-shader-hero";
 import AnimatedTextCycle from "@/components/ui/animated-text-cycle";
-import { Text_03 } from "@/components/ui/wave-text";
 import { Typewriter } from "@/components/ui/typewriter-text";
 import { Features } from "@/components/ui/features-8";
 import { Component as LightningSplit } from "@/components/ui/lightning-split";
@@ -61,16 +60,6 @@ export default function Home() {
         </div>
 
         <div className="relative z-10 -mt-16 flex flex-col items-center">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1 }}
-            className="mb-7 flex items-center gap-2 rounded-full border border-gold/30 bg-ink/40 px-4 py-1.5 text-[11px] tracking-[0.3em] text-gold backdrop-blur-sm"
-          >
-            <Ghost className="h-3.5 w-3.5" />{" "}
-            <Text_03 text="THE HUNT FOR HIDDEN FRAUD" />
-          </motion.div>
-
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
