@@ -8,7 +8,7 @@ An end-to-end workflow that turns raw healthcare claims into a **ranked, explain
 Raw claims  ->  Clean & link  ->  Features  ->  Models  ->  Ranked queue  ->  Explainable interface
 ```
 
-**Owners:** Akash and Shruthi
+**Owners:** Akash and Shuthi
 
 ---
 
