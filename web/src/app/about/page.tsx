@@ -1,6 +1,6 @@
 "use client";
 
-import { Code2, Database, ShieldCheck } from "lucide-react";
+import { Code2, Database, ShieldCheck, ExternalLink } from "lucide-react";
 import { Reveal, Seal } from "@/components/primitives";
 import { BrushDivider } from "@/components/scenery";
 import { PageHeader, Section, Kicker, Lantern } from "@/components/blocks";
@@ -20,16 +20,29 @@ export default function AboutPage() {
           <Kicker>THE TEAM</Kicker>
         </Reveal>
         <div className="mt-8 grid gap-5 md:grid-cols-2">
-          {[
+          {([
             { n: "Akash", r: "Data pipeline, modeling, web" },
-            { n: "Shruti Pingle", r: "Research, methodology, analysis" },
-          ].map((m, i) => (
+            {
+              n: "Shruti Pingle",
+              r: "Research, methodology, analysis",
+              href: "https://www.linkedin.com/in/shruti-pingle-aa8034196/",
+            },
+          ] as { n: string; r: string; href?: string }[]).map((m, i) => (
             <Reveal key={i} delay={0.08 * i}>
               <Lantern className="flex items-center gap-4">
                 <Seal kanji="士" className="h-11 w-11 text-base" />
-                <div>
+                <div className="flex-1">
                   <h3 className="font-heading text-lg text-washi">{m.n}</h3>
                   <p className="text-sm text-ash">{m.r}</p>
+                  {m.href && (
+                    <a
+                      href={m.href}
+                      target="_blank"
+                      className="mt-1.5 inline-flex items-center gap-1 text-xs tracking-wide text-gold transition hover:text-crimson-bright"
+                    >
+                      <ExternalLink className="h-3 w-3" /> LinkedIn
+                    </a>
+                  )}
                 </div>
               </Lantern>
             </Reveal>
