@@ -66,45 +66,54 @@ CMS_KEEP = {
 }
 
 
-def load_fraud_npis(leie_path: Path) -> tuple[set[str], set[str]]:
-    """Return (all_excluded_npis, fraud_excluded_npis) from the LEIE."""
+def load_fraud_npis(leie_path: Path) -> tuple[set[str], set[str], dict[str, int]]:
+    """Return (all_excluded_npis, fraud_excluded_npis, npi -> exclusion_year)."""
     leie = pd.read_csv(leie_path, dtype=str, encoding="utf-8-sig").fillna("")
     leie["NPI"] = leie["NPI"].str.strip()
     leie["EXCLTYPE"] = leie["EXCLTYPE"].str.strip()
 
     # Drop placeholder NPIs (0000000000) that cannot be joined.
-    valid = leie[(leie["NPI"].str.len() == 10) & (leie["NPI"] != "0000000000")]
+    valid = leie[(leie["NPI"].str.len() == 10) & (leie["NPI"] != "0000000000")].copy()
+
+    # Exclusion year (EXCLDATE is YYYYMMDD); keep the earliest per NPI.
+    valid["excl_year"] = pd.to_numeric(valid["EXCLDATE"].str[:4], errors="coerce")
+    excl_year = (valid.dropna(subset=["excl_year"])
+                      .groupby("NPI")["excl_year"].min().astype(int).to_dict())
 
     all_excluded = set(valid["NPI"])
     fraud_excluded = set(valid.loc[valid["EXCLTYPE"].isin(FRAUD_EXCLTYPES), "NPI"])
     print(f"LEIE: {len(leie):,} records | {len(all_excluded):,} with usable NPI | "
           f"{len(fraud_excluded):,} fraud-related")
-    return all_excluded, fraud_excluded
+    return all_excluded, fraud_excluded, excl_year
+
+
+def _load_cms_year(year: int) -> pd.DataFrame:
+    cms_path = RAW_DIR / f"CMS_PartB_byProvider_{year}.csv"
+    if not cms_path.exists():
+        raise SystemExit(f"Missing {cms_path}. Run: python src/download_data.py --year {year}")
+    print(f"Loading CMS Part B {year} (~470 MB) ...")
+    df = pd.read_csv(cms_path, usecols=list(CMS_KEEP), dtype={"Rndrng_NPI": str}).rename(columns=CMS_KEEP)
+    df["npi"] = df["npi"].str.strip()
+    df.insert(1, "year", year)
+    return df
+
+
+def _label(df: pd.DataFrame, all_excluded: set[str], fraud_excluded: set[str]) -> pd.DataFrame:
+    df["excluded_any"] = df["npi"].isin(all_excluded).astype("int8")
+    df["fraud_label"] = df["npi"].isin(fraud_excluded).astype("int8")
+    return df
 
 
 def build(year: int) -> Path:
-    cms_path = RAW_DIR / f"CMS_PartB_byProvider_{year}.csv"
+    """Single-year labeled provider table (the ranking unit for the Risk Explorer)."""
     leie_path = RAW_DIR / "LEIE_exclusions.csv"
-    for p in (cms_path, leie_path):
-        if not p.exists():
-            raise SystemExit(f"Missing {p}. Run: python src/download_data.py --year {year}")
+    if not leie_path.exists():
+        raise SystemExit(f"Missing {leie_path}. Run: python src/download_data.py")
 
-    all_excluded, fraud_excluded = load_fraud_npis(leie_path)
+    all_excluded, fraud_excluded, _ = load_fraud_npis(leie_path)
+    df = _label(_load_cms_year(year), all_excluded, fraud_excluded)
 
-    print(f"Loading CMS Part B {year} (this is a ~470 MB file) ...")
-    df = pd.read_csv(
-        cms_path,
-        usecols=list(CMS_KEEP),
-        dtype={"Rndrng_NPI": str},
-    ).rename(columns=CMS_KEEP)
-
-    df["npi"] = df["npi"].str.strip()
-    df["excluded_any"] = df["npi"].isin(all_excluded).astype("int8")
-    df["fraud_label"] = df["npi"].isin(fraud_excluded).astype("int8")
-
-    n = len(df)
-    n_fraud = int(df["fraud_label"].sum())
-    n_excl = int(df["excluded_any"].sum())
+    n, n_fraud, n_excl = len(df), int(df["fraud_label"].sum()), int(df["excluded_any"].sum())
     print(f"CMS: {n:,} providers")
     print(f"  matched to a fraud exclusion : {n_fraud:,}  ({n_fraud / n:.4%})")
     print(f"  matched to any exclusion     : {n_excl:,}  ({n_excl / n:.4%})")
@@ -112,24 +121,64 @@ def build(year: int) -> Path:
     PROC_DIR.mkdir(parents=True, exist_ok=True)
     out = PROC_DIR / f"provider_fraud_{year}.parquet"
     df.to_parquet(out, index=False)
-
-    # Small CSV preview that is safe to glance at / share internally.
-    sample = pd.concat([
-        df[df["fraud_label"] == 1].head(200),
-        df[df["fraud_label"] == 0].head(800),
-    ])
-    sample.to_csv(PROC_DIR / f"provider_fraud_{year}_sample.csv", index=False)
-
+    pd.concat([df[df.fraud_label == 1].head(200), df[df.fraud_label == 0].head(800)]) \
+        .to_csv(PROC_DIR / f"provider_fraud_{year}_sample.csv", index=False)
     print(f"\nWrote {out}  ({out.stat().st_size / 1e6:.1f} MB)")
-    print(f"Wrote preview {PROC_DIR / f'provider_fraud_{year}_sample.csv'}")
+    return out
+
+
+def build_panel(years: list[int], temporal: bool = True) -> Path:
+    """Pool multiple years into one provider-year panel to grow the positive set.
+
+    A provider-year (npi, year) is labeled fraud if the NPI has a fraud-related
+    LEIE exclusion. With temporal=True (default) a year is only labeled fraud if it
+    falls at or before the exclusion year, so we capture pre-exclusion billing and
+    do not label years after a provider was already barred.
+    """
+    leie_path = RAW_DIR / "LEIE_exclusions.csv"
+    if not leie_path.exists():
+        raise SystemExit(f"Missing {leie_path}. Run: python src/download_data.py")
+
+    all_excluded, fraud_excluded, excl_year = load_fraud_npis(leie_path)
+    frames = [_label(_load_cms_year(y), all_excluded, fraud_excluded) for y in sorted(years)]
+    panel = pd.concat(frames, ignore_index=True)
+
+    panel["excl_year"] = panel["npi"].map(excl_year).astype("Int64")
+    if temporal:
+        # Only keep the fraud flag for billing years at/before the exclusion year.
+        keep = (panel["fraud_label"] == 1) & (panel["excl_year"].notna()) & (panel["year"] <= panel["excl_year"])
+        panel["fraud_label"] = keep.astype("int8")
+
+    n = len(panel)
+    n_fraud = int(panel["fraud_label"].sum())
+    fraud_providers = panel.loc[panel.fraud_label == 1, "npi"].nunique()
+    print(f"\nPanel {sorted(years)[0]}-{sorted(years)[-1]}: {n:,} provider-years")
+    print(f"  fraud provider-years   : {n_fraud:,}  ({n_fraud / n:.4%})")
+    print(f"  unique fraud providers : {fraud_providers:,}")
+
+    PROC_DIR.mkdir(parents=True, exist_ok=True)
+    tag = f"{sorted(years)[0]}_{sorted(years)[-1]}"
+    out = PROC_DIR / f"provider_year_panel_{tag}.parquet"
+    panel.to_parquet(out, index=False)
+    pd.concat([panel[panel.fraud_label == 1].head(500), panel[panel.fraud_label == 0].head(1500)]) \
+        .to_csv(PROC_DIR / f"provider_year_panel_{tag}_sample.csv", index=False)
+    print(f"\nWrote {out}  ({out.stat().st_size / 1e6:.1f} MB)")
     return out
 
 
 def main() -> int:
     parser = argparse.ArgumentParser(description="Join CMS Part B + LEIE into a labeled provider table.")
-    parser.add_argument("--year", type=int, default=2023)
+    parser.add_argument("--year", type=int, default=2023, help="single-year build")
+    parser.add_argument("--pool", type=str, default=None,
+                        help="comma-separated years for a pooled panel, e.g. 2019,2020,2021,2022,2023")
+    parser.add_argument("--no-temporal", action="store_true",
+                        help="label ALL years of a fraud provider, not just pre-exclusion years")
     args = parser.parse_args()
-    build(args.year)
+    if args.pool:
+        years = [int(y) for y in args.pool.split(",")]
+        build_panel(years, temporal=not args.no_temporal)
+    else:
+        build(args.year)
     return 0
 
 
