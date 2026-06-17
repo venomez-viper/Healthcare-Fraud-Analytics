@@ -3,7 +3,8 @@ import { Geist, Geist_Mono, Shippori_Mincho } from "next/font/google";
 import "./globals.css";
 import { FallingLeaves } from "@/components/falling-leaves";
 import { Grain } from "@/components/scenery";
-import { SiteNav, SiteFooter } from "@/components/blocks";
+import { SiteNav } from "@/components/blocks";
+import Footer4Col from "@/components/ui/footer-column";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -42,7 +43,7 @@ export default function RootLayout({
         <Grain />
         <SiteNav />
         <div className="flex-1">{children}</div>
-        <SiteFooter />
+        <Footer4Col />
       </body>
     </html>
   );

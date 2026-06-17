@@ -144,6 +144,28 @@
 }
 .sun-pulse { animation: sunpulse 9s ease-in-out infinite; }
 
+/* ronin coat + topknot caught in the wind */
+@keyframes clothsway {
+  0%, 100% { transform: rotate(calc(var(--lean) - 4deg)); }
+  50% { transform: rotate(calc(var(--lean) + 5deg)); }
+}
+.ronin-cloth {
+  transform-box: fill-box;
+  transform-origin: 100% 0%;
+  animation: clothsway 4.5s ease-in-out infinite;
+}
+
+/* blood dripping from the blade after the kill */
+@keyframes blooddrip {
+  0% { transform: translateY(0) scaleY(0.6); opacity: 0; }
+  18% { opacity: 1; }
+  72% { transform: translateY(120px) scaleY(1.5); opacity: 0.9; }
+  100% { transform: translateY(150px) scaleY(2); opacity: 0; }
+}
+.blood-drip { animation: blooddrip 5s ease-in infinite; transform-box: fill-box; }
+.blood-drip.d2 { animation-delay: 2.3s; }
+.blood-drip.d3 { animation-delay: 3.7s; }
+
 .grain-anim {
   opacity: 0.06;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");

@@ -23,7 +23,7 @@ export default function MethodologyPage() {
             { icon: <Layers className="h-6 w-6" />, t: "3. Features", d: "Absolute behaviour ratios plus peer-relative position: z-score, percentile, and median ratio within each specialty-and-year peer group. The peer layer is what makes it work." },
             { icon: <Cpu className="h-6 w-6" />, t: "4. Models", d: "Fit with BreezeML: logistic regression, gradient boosting, and XGBoost, with random undersampling to handle the extreme imbalance." },
             { icon: <Target className="h-6 w-6" />, t: "5. Evaluation", d: "Provider-grouped train/test split (no NPI on both sides). Headline metric is precision at top-k, the metric that matches the real decision." },
-            { icon: <Ghost className="h-6 w-6" />, t: "6. PU learning", d: "We treat unlabelled providers as unknown, not innocent, and use PU bagging, which lifts fraud caught in the top 1 percent by 49 percent." },
+            { icon: <Ghost className="h-6 w-6" />, t: "6. PU learning", d: "We treat unlabelled providers as unknown, not innocent, and use PU bagging. Against a matched baseline it wins 4 of 5 random splits, a consistent lift in top-k recall." },
           ].map((s, i) => (
             <Reveal key={i} delay={0.06 * i}>
               <Lantern className="flex gap-4">
@@ -60,7 +60,6 @@ export default function MethodologyPage() {
                   ["Logistic Regression (scaled)", "0.747", "43.2%"],
                   ["Gradient Boosting", "0.809", "55.6%"],
                   ["XGBoost", "0.767", "45.6%"],
-                  ["PU bagging (ours)", "0.815", "55.9%"],
                 ].map((r, i) => (
                   <tr key={i} className="border-b border-border/40 last:border-0">
                     <td className="py-3 pr-4">{r[0]}</td>
@@ -75,9 +74,12 @@ export default function MethodologyPage() {
         <Reveal delay={0.15}>
           <p className="section-lead">
             Gradient boosting matches the published Part B benchmark (Herland,
-            Khoshgoftaar and Bauder, 2018: 0.805 to 0.816). Absolute precision is low
-            by design: at 0.022 percent prevalence with incomplete labels, ROC-AUC and
-            top-k recall are the trustworthy signals.
+            Khoshgoftaar and Bauder, 2018: 0.805 to 0.816). Reframing the problem as
+            Positive-Unlabeled (PU bagging) then beats a matched baseline on the mean
+            of every metric across five random splits, lifting top-1% recall from about
+            15 to 17 percent. Absolute precision is low by design: at 0.022 percent
+            prevalence with incomplete labels, ROC-AUC and top-k recall are the
+            trustworthy signals.
           </p>
         </Reveal>
       </Section>

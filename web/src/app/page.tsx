@@ -13,9 +13,15 @@ import {
   ArrowDown,
 } from "lucide-react";
 import { Reveal, Counter, Seal } from "@/components/primitives";
-import { CrimsonSun, MountainRidges, GrassBand, BrushDivider } from "@/components/scenery";
+import { CrimsonSun, MountainRidges, GrassBand, BrushDivider, Ronin } from "@/components/scenery";
 import { Section, Kicker, Lantern } from "@/components/blocks";
 import { Meteors } from "@/components/ui/meteors";
+import { ShaderBackground } from "@/components/ui/animated-shader-hero";
+import AnimatedTextCycle from "@/components/ui/animated-text-cycle";
+import { Text_03 } from "@/components/ui/wave-text";
+import { Typewriter } from "@/components/ui/typewriter-text";
+import { Features } from "@/components/ui/features-8";
+import { Component as LightningSplit } from "@/components/ui/lightning-split";
 
 type Provider = {
   rank: number;
@@ -39,17 +45,15 @@ export default function Home() {
     <main className="relative font-sans">
       {/* ===== HERO ===== */}
       <section className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden px-6 text-center">
+        <ShaderBackground className="absolute inset-0 -z-[1] h-full w-full" />
         <div
           aria-hidden
-          className="absolute inset-0 -z-[1]"
-          style={{
-            background:
-              "linear-gradient(to bottom, #060809 0%, #0a120c 45%, #112016 76%, #1a2a1d 100%)",
-          }}
+          className="absolute inset-0 -z-[1] bg-gradient-to-b from-ink/40 via-transparent to-[#0a0705]"
         />
         <Meteors number={10} />
         <CrimsonSun className="left-1/2 top-[20%] -translate-x-1/2 -translate-y-1/2" />
         <MountainRidges />
+        <Ronin className="bottom-[5.5rem] left-[60%] z-[2] h-[34vh] w-[21vh] drop-shadow-[0_8px_24px_rgba(0,0,0,0.7)] md:left-[64%]" />
         <GrassBand />
 
         <div className="pointer-events-none absolute right-6 top-[22%] hidden select-none font-heading text-6xl text-washi/10 md:block vertical-jp">
@@ -63,7 +67,8 @@ export default function Home() {
             transition={{ duration: 1 }}
             className="mb-7 flex items-center gap-2 rounded-full border border-gold/30 bg-ink/40 px-4 py-1.5 text-[11px] tracking-[0.3em] text-gold backdrop-blur-sm"
           >
-            <Ghost className="h-3.5 w-3.5" /> THE HUNT FOR HIDDEN FRAUD
+            <Ghost className="h-3.5 w-3.5" />{" "}
+            <Text_03 text="THE HUNT FOR HIDDEN FRAUD" />
           </motion.div>
 
           <motion.h1
@@ -74,7 +79,12 @@ export default function Home() {
           >
             We hunt the fraud
             <br />
-            <span className="text-crimson-bright text-glow">that hides.</span>
+            that{" "}
+            <AnimatedTextCycle
+              words={["hides.", "lies.", "bills.", "vanishes.", "cheats."]}
+              interval={2600}
+              className="text-crimson-bright text-glow"
+            />
           </motion.h1>
 
           <motion.p
@@ -94,6 +104,20 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.7 }}
             className="mt-11 flex flex-col items-center gap-5"
           >
+            <p className="font-mono text-xs tracking-wider text-gold/70">
+              <span className="text-crimson-bright">&gt;</span>{" "}
+              <Typewriter
+                text={[
+                  "reading real Medicare billing...",
+                  "ranking by peer deviation...",
+                  "explaining every flag.",
+                ]}
+                speed={55}
+                deleteSpeed={28}
+                loop
+                cursor="▋"
+              />
+            </p>
             <div className="flex flex-wrap items-center justify-center gap-4">
               <a
                 href="#problem"
@@ -210,6 +234,15 @@ export default function Home() {
         </div>
       </Section>
 
+      {/* ===== AT A GLANCE (21st features grid) ===== */}
+      <Section>
+        <Reveal>
+          <Kicker icon={<ShieldAlert className="h-4 w-4" />}>AT A GLANCE</Kicker>
+          <h2 className="section-title">What the engine actually delivers.</h2>
+        </Reveal>
+        <Features />
+      </Section>
+
       <BrushDivider />
 
       {/* ===== BREAKTHROUGH ===== */}
@@ -226,29 +259,64 @@ export default function Home() {
             The official fraud list only contains providers who got caught. The standard
             approach wrongly treats everyone else as honest. We treat them as{" "}
             <span className="text-gold">unknown</span> instead, the proper way to learn
-            from incomplete labels. That single shift found far more fraud in the
-            critical top slice.
+            from incomplete labels. Across five random splits that shift won four,
+            consistently finding more fraud in the critical top slice.
           </p>
         </Reveal>
+        <Reveal delay={0.15}>
+          <div className="mt-10 h-[60vh] w-full overflow-hidden rounded-md border border-border lantern-glow">
+            <LightningSplit
+              leftComponent={
+                <div className="flex h-full w-full flex-col items-center justify-center bg-[#0b0907] p-8 text-center">
+                  <p className="text-xs tracking-[0.3em] text-ash">STANDARD APPROACH</p>
+                  <p className="mt-4 max-w-xs text-washi">
+                    Treats every uncaught provider as{" "}
+                    <span className="text-ash/70">innocent</span>.
+                  </p>
+                  <div className="mt-6 font-heading text-5xl text-ash/70">15%</div>
+                  <p className="mt-1 text-xs text-ash">caught in top 1%</p>
+                </div>
+              }
+              rightComponent={
+                <div className="flex h-full w-full flex-col items-center justify-center bg-[#15100c] p-8 text-center">
+                  <p className="text-xs tracking-[0.3em] text-gold">OUR PU-LEARNING ENGINE</p>
+                  <p className="mt-4 max-w-xs text-washi">
+                    Treats them as{" "}
+                    <span className="text-gold">unknown</span>, the honest way.
+                  </p>
+                  <div className="mt-6 font-heading text-6xl font-bold text-crimson-bright text-glow">
+                    17%
+                  </div>
+                  <p className="mt-1 text-xs text-gold">caught in top 1%</p>
+                </div>
+              }
+            />
+          </div>
+          <p className="mt-3 text-center text-xs text-ash/60">
+            Hover left or right to draw the blade between the two approaches.
+          </p>
+        </Reveal>
+
         <Reveal delay={0.2}>
           <Lantern className="mt-10 text-center">
             <p className="text-sm tracking-widest text-gold">TOP 1% OF THE WORKLIST</p>
             <div className="mt-3 flex items-end justify-center gap-10">
               <div>
-                <div className="font-heading text-4xl text-ash/70">14%</div>
+                <div className="font-heading text-4xl text-ash/70">15%</div>
                 <p className="mt-1 text-xs text-ash">standard approach</p>
               </div>
               <div className="text-2xl text-gold">→</div>
               <div>
                 <div className="font-heading text-5xl font-bold text-crimson-bright text-glow">
-                  <Counter to={21} suffix="%" />
+                  <Counter to={17} suffix="%" />
                 </div>
                 <p className="mt-1 text-xs text-gold">our PU-learning engine</p>
               </div>
             </div>
             <p className="mt-5 text-sm text-ash">
-              A <span className="text-washi">49% relative jump</span> in fraud caught,
-              for the same investigator effort.
+              A consistent lift in fraud caught for the same investigator effort,
+              winning <span className="text-washi">4 of 5 random splits</span>{" "}
+              (mean over 5 seeds).
             </p>
           </Lantern>
         </Reveal>

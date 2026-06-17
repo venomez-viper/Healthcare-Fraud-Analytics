@@ -109,6 +109,42 @@ export function BrushDivider({ className = "" }: { className?: string }) {
   );
 }
 
+/** Lone ronin silhouette, katana planted, coat caught in the wind.
+   Stands as a dark sumi-e cutout against the sun. Cloth + topknot sway. */
+export function Ronin({ className = "" }: { className?: string }) {
+  return (
+    <div aria-hidden className={`pointer-events-none absolute ${className}`}>
+      <svg viewBox="0 0 200 320" className="h-full w-full overflow-visible" fill="#070504">
+        {/* planted katana (blade into the ground, hilt up at his side) */}
+        <g stroke="#070504" strokeLinecap="round">
+          <line x1="150" y1="120" x2="150" y2="300" strokeWidth="3" />
+          <line x1="142" y1="118" x2="158" y2="118" strokeWidth="5" />
+        </g>
+        {/* blood smeared down the blade + drips + ground pool */}
+        <line x1="150" y1="150" x2="150" y2="298" stroke="#8c1c16" strokeWidth="1.6" strokeLinecap="round" />
+        <ellipse cx="150" cy="306" rx="22" ry="5" fill="#7a1812" opacity="0.85" />
+        <circle className="blood-drip" cx="150" cy="170" r="2.4" fill="#b1271f" />
+        <circle className="blood-drip d2" cx="150" cy="170" r="2" fill="#9c1f18" />
+        <circle className="blood-drip d3" cx="150" cy="170" r="1.7" fill="#b1271f" />
+        {/* wind-blown coat tail (sways) */}
+        <path className="ronin-cloth" style={{ ["--lean" as string]: "0deg" }}
+          d="M96 200 C70 214 44 226 26 214 C50 232 78 236 104 224 Z" />
+        {/* legs / hakama */}
+        <path d="M86 196 C82 240 78 280 70 312 L92 312 C96 276 100 244 100 214 C100 244 104 276 108 312 L130 312 C122 280 118 240 114 196 Z" />
+        {/* torso + flared haori shoulders */}
+        <path d="M100 96 C84 100 74 110 70 128 L66 150 C74 146 80 150 82 162 L84 200 L116 200 L118 162 C120 150 126 146 134 150 L130 128 C126 110 116 100 100 96 Z" />
+        {/* right arm down to katana hilt */}
+        <path d="M118 132 C132 138 144 130 150 120 C152 126 146 138 132 146 C124 150 118 146 116 140 Z" />
+        {/* head */}
+        <circle cx="100" cy="80" r="15" />
+        {/* topknot (sways) */}
+        <path className="ronin-cloth" style={{ ["--lean" as string]: "4deg" }}
+          d="M100 66 C104 56 112 52 122 54 C114 60 110 66 108 72 Z" />
+      </svg>
+    </div>
+  );
+}
+
 export function Torii({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 100 80" className={className} fill="currentColor" aria-hidden>

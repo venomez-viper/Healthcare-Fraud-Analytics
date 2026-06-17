@@ -11,7 +11,7 @@ export default function AboutPage() {
       <PageHeader
         kanji="仁"
         eyebrow="ABOUT"
-        title="Two students hunting fraud in the open."
+        title="Two individuals hunting fraud in the open."
         lead="A capstone built on real government data, published research, and a willingness to be honest about what works and what does not."
       />
 
@@ -21,7 +21,11 @@ export default function AboutPage() {
         </Reveal>
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           {([
-            { n: "Akash", r: "Data pipeline, modeling, web" },
+            {
+              n: "Akash",
+              r: "Data pipeline, modeling, web",
+              href: "https://www.linkedin.com/in/akash-anipakalu-giridhar-1089011b1/",
+            },
             {
               n: "Shruti Pingle",
               r: "Research, methodology, analysis",

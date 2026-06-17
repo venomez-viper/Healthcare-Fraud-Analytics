@@ -57,44 +57,73 @@ def run_bags(pos: pd.DataFrame, unl: pd.DataFrame, feats: list[str], med: pd.Ser
     return test_scores / n_bags
 
 
-def main() -> int:
-    ap = argparse.ArgumentParser(description="PU bagging vs supervised baseline (A/B).")
-    ap.add_argument("--in", dest="in_path", required=True)
-    ap.add_argument("--test-size", type=float, default=0.25)
-    ap.add_argument("--neg-ratio", type=int, default=10, help="pseudo-neg per pos, per bag")
-    ap.add_argument("--bags", type=int, default=15)
-    ap.add_argument("--seed", type=int, default=42)
-    args = ap.parse_args()
-
-    df = pd.read_parquet(args.in_path)
-    feats = feature_columns(df)
-    train, test = grouped_split(df, args.test_size, args.seed)
+def run_ab(df: pd.DataFrame, feats: list[str], test_size: float, neg_ratio: int,
+           bags: int, seed: int) -> tuple[dict, dict]:
+    """One seed: grouped split, then Arm A (single draw) and Arm B (PU bagging)."""
+    train, test = grouped_split(df, test_size, seed)
     assert set(train["npi"]).isdisjoint(set(test["npi"])), "provider leak across split!"
-
     pos = train[train[TARGET] == 1]
     unl = train[train[TARGET] == 0]
     med = train[feats].replace([np.inf, -np.inf], np.nan).median()
     Xte = _impute(test[feats], med)
     yte = test[TARGET].to_numpy()
     total_fraud = int(yte.sum())
-    print(f"loaded {len(df):,} rows | {len(feats)} features")
-    print(f"split: train pos {len(pos)} / unlabeled {len(unl):,} | test fraud {total_fraud} "
-          f"of {len(test):,}")
-    print(f"PU config: {args.bags} bags, {args.neg_ratio}:1 pseudo-neg:pos per bag\n")
 
-    metrics = []
-    # Arm A: single draw (supervised baseline style)
-    scores_a = run_bags(pos, unl, feats, med, Xte, n_bags=1,
-                        neg_ratio=args.neg_ratio, seed=args.seed)
-    metrics.append(evaluate("Arm A: supervised (single draw)", yte, scores_a, total_fraud))
+    scores_a = run_bags(pos, unl, feats, med, Xte, 1, neg_ratio, seed)
+    mA = evaluate(f"[seed {seed}] Arm A: supervised (single draw)", yte, scores_a, total_fraud)
+    scores_b = run_bags(pos, unl, feats, med, Xte, bags, neg_ratio, seed)
+    mB = evaluate(f"[seed {seed}] Arm B: PU bagging ({bags} bags)", yte, scores_b, total_fraud)
+    return mA, mB
 
-    # Arm B: PU bagging
-    scores_b = run_bags(pos, unl, feats, med, Xte, n_bags=args.bags,
-                        neg_ratio=args.neg_ratio, seed=args.seed)
-    metrics.append(evaluate(f"Arm B: PU bagging ({args.bags} bags)", yte, scores_b, total_fraud))
+
+def summarize(rows: list[dict], keys: list[str]) -> dict:
+    return {k: {"mean": float(np.mean([r[k] for r in rows])),
+                "std": float(np.std([r[k] for r in rows]))} for k in keys}
+
+
+def main() -> int:
+    ap = argparse.ArgumentParser(description="PU bagging vs supervised baseline (A/B).")
+    ap.add_argument("--in", dest="in_path", required=True)
+    ap.add_argument("--test-size", type=float, default=0.25)
+    ap.add_argument("--neg-ratio", type=int, default=10, help="pseudo-neg per pos, per bag")
+    ap.add_argument("--bags", type=int, default=15)
+    ap.add_argument("--seeds", type=str, default="42",
+                    help="comma-separated seeds; each is a different grouped split")
+    args = ap.parse_args()
+    sys.stdout.reconfigure(line_buffering=True)
+
+    df = pd.read_parquet(args.in_path)
+    feats = feature_columns(df)
+    seeds = [int(s) for s in args.seeds.split(",")]
+    print(f"loaded {len(df):,} rows | {len(feats)} features | seeds {seeds} | "
+          f"{args.bags} bags, {args.neg_ratio}:1 per bag\n")
+
+    A_rows, B_rows = [], []
+    for seed in seeds:
+        mA, mB = run_ab(df, feats, args.test_size, args.neg_ratio, args.bags, seed)
+        A_rows.append(mA)
+        B_rows.append(mB)
+
+    keys = ["roc_auc", "pr_auc", "recall_at_1pct", "recall_at_5pct", "recall_at_10pct"]
+    sumA, sumB = summarize(A_rows, keys), summarize(B_rows, keys)
+
+    print("\n" + "=" * 64)
+    print(f"ROBUSTNESS SUMMARY over {len(seeds)} seeds (mean +/- std)")
+    print("=" * 64)
+    print(f"{'metric':18s} {'Arm A supervised':>20s} {'Arm B PU bagging':>20s}")
+    for k in keys:
+        a, b = sumA[k], sumB[k]
+        print(f"{k:18s} {a['mean']:.4f} +/- {a['std']:.4f}    "
+              f"{b['mean']:.4f} +/- {b['std']:.4f}")
+    # per-seed win check on the headline metric
+    wins = sum(1 for ra, rb in zip(A_rows, B_rows)
+               if rb["recall_at_1pct"] > ra["recall_at_1pct"])
+    print(f"\nPU bagging wins on top-1% recall in {wins}/{len(seeds)} seeds")
 
     MODEL_DIR.mkdir(exist_ok=True)
-    (MODEL_DIR / "pu_metrics.json").write_text(json.dumps(metrics, indent=2))
+    out = {"seeds": seeds, "per_seed": {"A": A_rows, "B": B_rows},
+           "summary": {"A": sumA, "B": sumB}, "pu_wins_top1pct": f"{wins}/{len(seeds)}"}
+    (MODEL_DIR / "pu_metrics.json").write_text(json.dumps(out, indent=2))
     print(f"\nsaved A/B metrics to {MODEL_DIR / 'pu_metrics.json'}")
     return 0
 
