@@ -1,0 +1,187 @@
+{
+  "global_importance": {
+    "charge to payment": 0.47365,
+    "services per patient": 0.45132,
+    "patient average age": 0.37442,
+    "peer group size": 0.35685,
+    "patient average risk score": 0.31198,
+    "total medicare allowed": 0.24721,
+    "total medicare allowed (peer percentile)": 0.16633,
+    "total procedure codes (vs peer median)": 0.16507,
+    "services per patient (vs peers, SD)": 0.15973,
+    "total procedure codes": 0.15771,
+    "total beneficiaries (vs peers, SD)": 0.15766,
+    "total procedure codes (vs peers, SD)": 0.15532,
+    "total medicare allowed (vs peers, SD)": 0.1398,
+    "total medicare allowed (vs peer median)": 0.12293,
+    "services per patient (peer percentile)": 0.12055
+  },
+  "base_value": -2.9977307319641113,
+  "cards": [
+    {
+      "provider_type": "Psychologist, Clinical",
+      "state": "MI",
+      "score": 0.9828,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "total medicare allowed: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Licensed Clinical Social Worker",
+      "state": "MI",
+      "score": 0.9732,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "total medicare allowed: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Pain Management",
+      "state": "TX",
+      "score": 0.9705,
+      "known_fraud": 0,
+      "reasons": [
+        "services per patient: pushes risk up",
+        "patient average age: pushes risk up",
+        "peer group size: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Licensed Clinical Social Worker",
+      "state": "MI",
+      "score": 0.97,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "total medicare allowed: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Anesthesiology",
+      "state": "GA",
+      "score": 0.9698,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "total procedure codes (vs peers, SD): pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Anesthesiology",
+      "state": "GA",
+      "score": 0.9645,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "total procedure codes (vs peers, SD): pushes risk up",
+        "services per patient: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Nurse Practitioner",
+      "state": "AZ",
+      "score": 0.9606,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "total medicare allowed: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Clinical Laboratory",
+      "state": "TX",
+      "score": 0.9585,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "total medicare allowed: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Pain Management",
+      "state": "NH",
+      "score": 0.9584,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "peer group size: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Pain Management",
+      "state": "TX",
+      "score": 0.9569,
+      "known_fraud": 1,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "peer group size: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Podiatry",
+      "state": "TX",
+      "score": 0.9558,
+      "known_fraud": 0,
+      "reasons": [
+        "services per patient: pushes risk up",
+        "charge to payment: pushes risk up",
+        "payment per patient (vs peers, SD): pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Internal Medicine",
+      "state": "TX",
+      "score": 0.9553,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "total medicare allowed: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Licensed Clinical Social Worker",
+      "state": "MI",
+      "score": 0.9527,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "total medicare allowed: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Anesthesiology",
+      "state": "GA",
+      "score": 0.9518,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "total procedure codes (vs peers, SD): pushes risk up",
+        "services per patient: pushes risk up"
+      ]
+    },
+    {
+      "provider_type": "Interventional Pain Management",
+      "state": "OH",
+      "score": 0.9505,
+      "known_fraud": 0,
+      "reasons": [
+        "patient average age: pushes risk up",
+        "services per patient: pushes risk up",
+        "peer group size: pushes risk up"
+      ]
+    }
+  ]
+}
