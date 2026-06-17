@@ -60,7 +60,13 @@ python src/train_model.py --in data/processed/provider_year_panel_2019_2023_feat
 | `src/build_dataset.py` | NPI join + LEIE fraud labeling; `--pool` builds the multi-year panel with temporal labeling. |
 | `src/prepare_data.py` | Data-quality report, conservative cleaning, Layer 1 absolute ratios. |
 | `src/build_features.py` | Layer 2 peer-relative features within each specialty x year peer group. |
+| `src/build_temporal_features.py` | Provider trajectory features (trend, volatility, year-over-year jumps). |
 | `src/train_model.py` | Provider-grouped split, RUS imbalance handling, fits via BreezeML, top-k evaluation. |
+| `src/train_pu.py` | Positive-Unlabeled (PU) bagging A/B vs the supervised baseline, multi-seed. |
+| `src/train_anomaly.py` | Unsupervised Isolation Forest track + two-track combination. |
+| `src/train_nnpu.py` | Neural non-negative PU learning (Kiryo 2017), PyTorch. |
+| `src/explain_shap.py` | SHAP global importance + per-provider "why flagged" reasons. |
+| `src/score_providers.py` | Scores providers and exports the ranked worklist for the web app. |
 
 ## Feature engineering
 
@@ -119,15 +125,32 @@ random), and the LEIE labels are incomplete (most real fraud is unlabeled and si
 in the data as "clean"), which understates precision. ROC-AUC and top-k recall are
 the trustworthy signals here.
 
-### Research direction (next)
+### Beyond the baseline: two tracks, explainability, and the PU breakthrough
 
-The incomplete-label problem above is also an opportunity. The standard literature
-treats this as supervised classification, but with positives + unlabeled and no
-true negatives it is really a **Positive-Unlabeled (PU) learning** problem. We are
-testing whether modeling it as PU, and modeling each provider's multi-year
-**trajectory** (drift into fraud) over the 2019-2023 panel, beats the supervised
-snapshot baseline above. Anomaly detection (Isolation Forest) and a per-provider
-LLM "why flagged" writeup are also on the roadmap.
+**Positive-Unlabeled (PU) learning (our headline contribution).** The incomplete-label
+problem is an opportunity. With positives + unlabeled and no true negatives, this is
+really a PU problem, not supervised classification. PU bagging (many models, each on
+all positives plus a fresh random sample of the unlabeled pool, averaged) beats a
+matched supervised baseline on the mean of every metric. Over **5 random splits** it
+wins **4 of 5** on top-1% recall, lifting it from ~15% to ~17% (a real, consistent,
+if modest, gain). We report the robust multi-seed number, not the lucky single seed.
+
+**Unsupervised anomaly track (Isolation Forest).** A label-free detector that flags
+providers who look bizarre versus peers. With **zero labels** it catches **32% of
+fraud in the top 10%** (ROC-AUC 0.68). Useful as a standalone second opinion; a naive
+equal blend with the supervised ranker hurts (0.79 < 0.82), so fusion must be weighted.
+
+**Explainability (SHAP).** Every flag carries plain-English reasons. The top global
+drivers are the **charge-to-payment ratio** and **services per beneficiary**, classic
+over-billing and over-servicing signals (grounds the model in the right behaviour).
+
+**Honest negative result (nnPU).** We also implemented the principled neural PU method
+(non-negative PU, Kiryo 2017). It underperforms the tree-based methods (ROC-AUC 0.69
+vs 0.82). The lesson: with only 944 positives on tabular data, gradient-boosted trees
+beat deep learning, so **PU bagging on trees remains our best approach**.
+
+**Next:** temporal trajectory features for the tree model, weighted two-track fusion,
+and an LLM investigator agent for richer per-provider writeups.
 
 ## For collaborators (getting the data)
 
@@ -146,9 +169,11 @@ python src/build_features.py --in data/processed/provider_year_panel_2019_2023_c
 |---|---|---|
 | A. Data foundation | CMS Part B + LEIE -> labeled provider-year panel; conservative cleaning. | Done |
 | B. Feature engineering | Absolute behavior + peer-relative position (z / percentile / median ratio). | Done |
-| C. Modeling | Supervised baseline (LogReg, GradientBoosting, XGBoost) via BreezeML. Anomaly track + PU learning next. | Baseline done |
-| D. Evaluation | Precision at top-k (1/5/10%) primary; grouped split so providers don't leak. | Done |
-| E. Risk Explorer | Ranked queue + per-provider detail view + SHAP and peer-deviation explanations. | Planned |
+| C. Modeling | Supervised (LogReg, GradientBoosting, XGBoost), PU bagging, Isolation Forest anomaly track, nnPU. | Done |
+| D. Evaluation | Precision at top-k (1/5/10%) primary; grouped split; multi-seed robustness. | Done |
+| E. Explainability | SHAP global importance + per-provider "why flagged" reasons. | Done |
+| F. Risk Explorer | Ranked queue + per-provider detail + explanations (web app, live). | Live |
+| G. Advanced | Temporal trajectory features, weighted fusion, LLM investigator agent, GNN rings. | In progress |
 
 ## Repository contents
 
