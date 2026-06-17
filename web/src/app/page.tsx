@@ -13,7 +13,16 @@ import {
   ArrowDown,
 } from "lucide-react";
 import { FallingLeaves } from "@/components/falling-leaves";
-import { Reveal, Counter, Seal, Divider } from "@/components/primitives";
+import { Reveal, Counter, Seal } from "@/components/primitives";
+import {
+  Vignette,
+  Grain,
+  CrimsonSun,
+  MountainRidges,
+  GrassBand,
+  BrushDivider,
+  Torii,
+} from "@/components/scenery";
 
 type Provider = {
   rank: number;
@@ -38,6 +47,8 @@ export default function Home() {
   return (
     <main className="relative font-sans text-washi">
       <FallingLeaves />
+      <Vignette />
+      <Grain />
 
       {/* ===== NAV ===== */}
       <nav className="sticky top-0 z-30 flex items-center justify-between border-b border-border/60 bg-ink/70 px-6 py-4 backdrop-blur-md">
@@ -57,55 +68,71 @@ export default function Home() {
       </nav>
 
       {/* ===== HERO ===== */}
-      <section className="paper-grain relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden px-6 text-center">
-        <div className="pointer-events-none absolute right-8 top-1/4 hidden select-none font-heading text-7xl text-crimson/15 md:block vertical-jp">
+      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
+        {/* sky gradient toward a warm horizon */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-[1]"
+          style={{
+            background:
+              "linear-gradient(to bottom, #070504 0%, #110a07 45%, #2a130d 78%, #3a160e 100%)",
+          }}
+        />
+        <CrimsonSun className="left-1/2 top-[20%] -translate-x-1/2 -translate-y-1/2" />
+        <MountainRidges />
+        <GrassBand />
+
+        <div className="pointer-events-none absolute right-6 top-[22%] hidden select-none font-heading text-6xl text-washi/10 md:block vertical-jp">
           見えざる敵
         </div>
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1 }}
-          className="mb-6 flex items-center gap-2 rounded-full border border-gold/30 bg-sumi/60 px-4 py-1.5 text-[11px] tracking-[0.3em] text-gold"
-        >
-          <Ghost className="h-3.5 w-3.5" /> THE HUNT FOR HIDDEN FRAUD
-        </motion.div>
 
-        <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.15 }}
-          className="font-heading text-5xl font-extrabold leading-[1.05] text-washi md:text-7xl"
-        >
-          We hunt the fraud
-          <br />
-          <span className="text-crimson-bright text-glow">that hides.</span>
-        </motion.h1>
-
-        <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.4 }}
-          className="mt-7 max-w-2xl text-lg leading-relaxed text-ash"
-        >
-          Billions vanish each year to dishonest medical providers. Investigators can
-          only check a handful. This engine reads real Medicare billing and hands them
-          a short, ranked, explained list of exactly who to look at first.
-        </motion.p>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.7 }}
-          className="mt-10 flex flex-col items-center gap-3"
-        >
-          <a
-            href="#problem"
-            className="lantern-glow rounded-sm bg-crimson px-7 py-3 text-sm font-medium tracking-wide text-primary-foreground transition hover:bg-crimson-bright"
+        <div className="relative z-10 -mt-16 flex flex-col items-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="mb-7 flex items-center gap-2 rounded-full border border-gold/30 bg-ink/40 px-4 py-1.5 text-[11px] tracking-[0.3em] text-gold backdrop-blur-sm"
           >
-            See how it works
-          </a>
-          <ArrowDown className="mt-4 h-5 w-5 animate-bounce text-gold/60" />
-        </motion.div>
+            <Ghost className="h-3.5 w-3.5" /> THE HUNT FOR HIDDEN FRAUD
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.15 }}
+            className="font-heading text-6xl font-extrabold leading-[1.02] tracking-tight text-washi drop-shadow-[0_2px_20px_rgba(0,0,0,0.7)] md:text-8xl"
+          >
+            We hunt the fraud
+            <br />
+            <span className="text-crimson-bright text-glow">that hides.</span>
+          </motion.h1>
+
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.4 }}
+            className="mt-8 max-w-2xl text-lg leading-relaxed text-washi/75 drop-shadow-[0_1px_10px_rgba(0,0,0,0.8)]"
+          >
+            Billions vanish each year to dishonest medical providers. Investigators can
+            only check a handful. This engine reads real Medicare billing and hands them
+            a short, ranked, explained list of exactly who to look at first.
+          </motion.p>
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.7 }}
+            className="mt-11 flex flex-col items-center gap-5"
+          >
+            <a
+              href="#problem"
+              className="lantern-glow rounded-sm bg-crimson px-8 py-3.5 text-sm font-medium tracking-wide text-primary-foreground transition hover:bg-crimson-bright"
+            >
+              See how it works
+            </a>
+            <ArrowDown className="h-5 w-5 animate-bounce text-gold/60" />
+          </motion.div>
+        </div>
       </section>
 
       {/* ===== PROBLEM ===== */}
@@ -142,7 +169,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Divider />
+      <BrushDivider />
 
       {/* ===== THE IDEA ===== */}
       <Section>
@@ -205,7 +232,7 @@ export default function Home() {
         </div>
       </Section>
 
-      <Divider />
+      <BrushDivider />
 
       {/* ===== BREAKTHROUGH ===== */}
       <Section>
@@ -249,7 +276,7 @@ export default function Home() {
         </Reveal>
       </Section>
 
-      <Divider />
+      <BrushDivider />
 
       {/* ===== RESULTS ===== */}
       <Section>
@@ -307,7 +334,7 @@ export default function Home() {
         )}
       </Section>
 
-      <Divider />
+      <BrushDivider />
 
       {/* ===== CREDITS ===== */}
       <Section>
@@ -328,7 +355,8 @@ export default function Home() {
       </Section>
 
       {/* ===== FOOTER ===== */}
-      <footer className="border-t border-border/60 px-6 py-10 text-center">
+      <footer className="relative border-t border-border/60 px-6 py-12 text-center">
+        <Torii className="mx-auto mb-5 h-10 w-12 text-crimson/70" />
         <Seal kanji="監" className="mx-auto mb-4" />
         <p className="font-heading text-sm tracking-[0.25em] text-washi/80">
           PROVIDER FRAUD RISK EXPLORER
@@ -362,10 +390,17 @@ function Kicker({ children, icon }: { children: React.ReactNode; icon: React.Rea
 }
 
 function Lantern({ children, className }: { children: React.ReactNode; className?: string }) {
+  function onMove(e: React.MouseEvent<HTMLDivElement>) {
+    const el = e.currentTarget;
+    const r = el.getBoundingClientRect();
+    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
+    el.style.setProperty("--my", `${e.clientY - r.top}px`);
+  }
   return (
     <div
+      onMouseMove={onMove}
       className={
-        "paper-grain rounded-md border border-border bg-sumi/70 p-7 transition hover:border-gold/40 " +
+        "spotlight-card paper-grain rounded-md border border-border bg-sumi/70 p-7 transition duration-300 hover:-translate-y-1 hover:border-gold/40 " +
         (className ?? "")
       }
     >
