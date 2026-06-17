@@ -8,7 +8,7 @@ An end-to-end workflow that turns real Medicare billing data into a **ranked, ex
 CMS claims  ->  Label (LEIE)  ->  Clean  ->  Peer features  ->  Models  ->  Ranked queue  ->  Explanations
 ```
 
-**Owners:** Akash and Shuthi
+**Owners:** Akash and Shruti Pingle
 
 ---
 
