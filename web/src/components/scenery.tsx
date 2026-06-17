@@ -38,10 +38,10 @@ export function MountainRidges() {
   return (
     <div aria-hidden className="pointer-events-none absolute inset-x-0 bottom-0 z-[1]">
       <svg viewBox="0 0 1440 360" preserveAspectRatio="none" className="h-[42vh] w-full">
-        {/* far ridge, faint crimson rim */}
+        {/* far ridge */}
         <path
           d="M0 220 L160 180 L320 205 L520 150 L700 195 L900 140 L1120 190 L1300 160 L1440 195 L1440 360 L0 360 Z"
-          fill="#1a0f0c"
+          fill="#0f1810"
         />
         {/* mid ridge */}
         <path
@@ -80,7 +80,7 @@ export function GrassBand() {
             height: `${b.h}px`,
             width: "2px",
             opacity: b.op,
-            background: "linear-gradient(to top, rgba(120,82,28,0) 0%, rgba(199,154,74,0.9) 60%, rgba(231,196,112,1) 100%)",
+            background: "linear-gradient(to top, rgba(20,45,18,0) 0%, rgba(64,120,46,0.9) 55%, rgba(120,180,78,1) 100%)",
             transformOrigin: "bottom center",
             ["--lean" as string]: `${b.lean}deg`,
             animationDelay: `${b.delay}s`,

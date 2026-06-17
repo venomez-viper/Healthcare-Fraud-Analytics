@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Shippori_Mincho } from "next/font/google";
 import "./globals.css";
+import { FallingLeaves } from "@/components/falling-leaves";
+import { Grain } from "@/components/scenery";
+import { SiteNav, SiteFooter } from "@/components/blocks";
 
 const geistSans = Geist({
   variable: "--font-sans",
@@ -34,7 +37,13 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} ${mincho.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col text-washi">
+        <FallingLeaves />
+        <Grain />
+        <SiteNav />
+        <div className="flex-1">{children}</div>
+        <SiteFooter />
+      </body>
     </html>
   );
 }

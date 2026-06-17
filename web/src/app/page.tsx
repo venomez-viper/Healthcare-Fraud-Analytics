@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import Link from "next/link";
 import {
   ShieldAlert,
   Database,
@@ -9,29 +10,19 @@ import {
   ListOrdered,
   ScrollText,
   Ghost,
-  Code2,
   ArrowDown,
 } from "lucide-react";
-import { FallingLeaves } from "@/components/falling-leaves";
 import { Reveal, Counter, Seal } from "@/components/primitives";
-import {
-  Vignette,
-  Grain,
-  CrimsonSun,
-  MountainRidges,
-  GrassBand,
-  BrushDivider,
-  Torii,
-} from "@/components/scenery";
+import { CrimsonSun, MountainRidges, GrassBand, BrushDivider } from "@/components/scenery";
+import { Section, Kicker, Lantern } from "@/components/blocks";
+import { Meteors } from "@/components/ui/meteors";
 
 type Provider = {
   rank: number;
-  score: number;
   known_fraud: number;
   npi: string;
   provider_type: string;
   state: string;
-  tot_medicare_payment: number;
   reasons: string;
 };
 
@@ -45,39 +36,18 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative font-sans text-washi">
-      <FallingLeaves />
-      <Vignette />
-      <Grain />
-
-      {/* ===== NAV ===== */}
-      <nav className="sticky top-0 z-30 flex items-center justify-between border-b border-border/60 bg-ink/70 px-6 py-4 backdrop-blur-md">
-        <div className="flex items-center gap-3">
-          <Seal kanji="監" className="h-8 w-8" />
-          <span className="font-heading text-sm tracking-[0.25em] text-washi/90">
-            FRAUD RISK EXPLORER
-          </span>
-        </div>
-        <a
-          href="https://github.com/venomez-viper/Healthcare-Fraud-Analytics"
-          target="_blank"
-          className="flex items-center gap-2 text-xs tracking-widest text-ash transition hover:text-gold"
-        >
-          <Code2 className="h-4 w-4" /> REPOSITORY
-        </a>
-      </nav>
-
+    <main className="relative font-sans">
       {/* ===== HERO ===== */}
-      <section className="relative flex min-h-screen flex-col items-center justify-center overflow-hidden px-6 text-center">
-        {/* sky gradient toward a warm horizon */}
+      <section className="relative flex min-h-[92vh] flex-col items-center justify-center overflow-hidden px-6 text-center">
         <div
           aria-hidden
           className="absolute inset-0 -z-[1]"
           style={{
             background:
-              "linear-gradient(to bottom, #070504 0%, #110a07 45%, #2a130d 78%, #3a160e 100%)",
+              "linear-gradient(to bottom, #060809 0%, #0a120c 45%, #112016 76%, #1a2a1d 100%)",
           }}
         />
+        <Meteors number={10} />
         <CrimsonSun className="left-1/2 top-[20%] -translate-x-1/2 -translate-y-1/2" />
         <MountainRidges />
         <GrassBand />
@@ -100,7 +70,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.15 }}
-            className="font-heading text-6xl font-extrabold leading-[1.02] tracking-tight text-washi drop-shadow-[0_2px_20px_rgba(0,0,0,0.7)] md:text-8xl"
+            className="font-heading text-6xl font-extrabold leading-[1.02] tracking-tight text-washi drop-shadow-[0_2px_20px_rgba(0,0,0,0.8)] md:text-8xl"
           >
             We hunt the fraud
             <br />
@@ -111,7 +81,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.4 }}
-            className="mt-8 max-w-2xl text-lg leading-relaxed text-washi/75 drop-shadow-[0_1px_10px_rgba(0,0,0,0.8)]"
+            className="mt-8 max-w-2xl text-lg leading-relaxed text-washi/75 drop-shadow-[0_1px_10px_rgba(0,0,0,0.85)]"
           >
             Billions vanish each year to dishonest medical providers. Investigators can
             only check a handful. This engine reads real Medicare billing and hands them
@@ -124,12 +94,20 @@ export default function Home() {
             transition={{ duration: 1, delay: 0.7 }}
             className="mt-11 flex flex-col items-center gap-5"
           >
-            <a
-              href="#problem"
-              className="lantern-glow rounded-sm bg-crimson px-8 py-3.5 text-sm font-medium tracking-wide text-primary-foreground transition hover:bg-crimson-bright"
-            >
-              See how it works
-            </a>
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              <a
+                href="#problem"
+                className="lantern-glow rounded-sm bg-crimson px-8 py-3.5 text-sm font-medium tracking-wide text-primary-foreground transition hover:bg-crimson-bright"
+              >
+                See how it works
+              </a>
+              <Link
+                href="/methodology"
+                className="rounded-sm border border-gold/30 px-8 py-3.5 text-sm tracking-wide text-washi/90 transition hover:border-gold/70 hover:text-gold"
+              >
+                The methodology
+              </Link>
+            </div>
             <ArrowDown className="h-5 w-5 animate-bounce text-gold/60" />
           </motion.div>
         </div>
@@ -158,7 +136,7 @@ export default function Home() {
             { n: 1, suffix: "%", label: "investigators can ever review" },
           ].map((s, i) => (
             <Reveal key={i} delay={0.1 * i}>
-              <Lantern>
+              <Lantern className="text-center">
                 <div className="font-heading text-5xl font-bold text-gold">
                   <Counter to={s.n} suffix={s.suffix} prefix={s.prefix} decimals={s.decimals} />
                 </div>
@@ -182,8 +160,8 @@ export default function Home() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="section-lead">
-            Picture an investigator with time to review only the top few providers
-            this week. Our job is to make that short list as dense with real fraud as
+            Picture an investigator with time to review only the top few providers this
+            week. Our job is to make that short list as dense with real fraud as
             possible, like a master archer taking one perfect shot instead of firing
             blindly into the dark.
           </p>
@@ -220,7 +198,7 @@ export default function Home() {
             },
           ].map((s, i) => (
             <Reveal key={i} delay={0.08 * i}>
-              <Lantern className="flex gap-4 text-left">
+              <Lantern className="flex gap-4">
                 <div className="mt-1 text-crimson-bright">{s.icon}</div>
                 <div>
                   <h3 className="font-heading text-lg text-washi">{s.t}</h3>
@@ -245,15 +223,15 @@ export default function Home() {
         </Reveal>
         <Reveal delay={0.1}>
           <p className="section-lead">
-            The official fraud list only contains providers who got caught. The
-            standard approach wrongly treats everyone else as honest. We treat them as{" "}
+            The official fraud list only contains providers who got caught. The standard
+            approach wrongly treats everyone else as honest. We treat them as{" "}
             <span className="text-gold">unknown</span> instead, the proper way to learn
             from incomplete labels. That single shift found far more fraud in the
             critical top slice.
           </p>
         </Reveal>
         <Reveal delay={0.2}>
-          <Lantern className="mt-10">
+          <Lantern className="mt-10 text-center">
             <p className="text-sm tracking-widest text-gold">TOP 1% OF THE WORKLIST</p>
             <div className="mt-3 flex items-end justify-center gap-10">
               <div>
@@ -291,7 +269,7 @@ export default function Home() {
             { n: 49, suffix: "%", label: "more fraud in the top 1% via PU learning" },
           ].map((s, i) => (
             <Reveal key={i} delay={0.1 * i}>
-              <Lantern>
+              <Lantern className="text-center">
                 <div className="font-heading text-5xl font-bold text-gold">
                   <Counter to={s.n} suffix={s.suffix} decimals={s.decimals} />
                 </div>
@@ -301,18 +279,17 @@ export default function Home() {
           ))}
         </div>
 
-        {/* live worklist preview */}
         {providers.length > 0 && (
           <Reveal delay={0.15}>
             <div className="mt-14">
               <p className="mb-4 text-center text-sm tracking-widest text-ash">
                 WHAT AN INVESTIGATOR SEES
               </p>
-              <div className="overflow-hidden rounded-md border border-border bg-sumi/60 text-left">
+              <div className="overflow-hidden rounded-md border border-border bg-sumi/60">
                 {providers.slice(0, 6).map((p) => (
                   <div
                     key={p.npi}
-                    className="flex items-center gap-4 border-b border-border/50 px-5 py-4 transition last:border-0 hover:bg-crimson/5"
+                    className="flex items-center gap-4 border-b border-border/50 px-5 py-4 text-left transition last:border-0 hover:bg-crimson/5"
                   >
                     <span className="w-8 font-heading text-lg text-gold/80">{p.rank}</span>
                     <div className="flex-1">
@@ -332,79 +309,24 @@ export default function Home() {
             </div>
           </Reveal>
         )}
-      </Section>
 
-      <BrushDivider />
-
-      {/* ===== CREDITS ===== */}
-      <Section>
-        <Reveal>
-          <Kicker icon={<ScrollText className="h-4 w-4" />}>
-            STANDING ON THEIR SHOULDERS
-          </Kicker>
-          <h2 className="section-title">Built on real research and real data.</h2>
-        </Reveal>
-        <Reveal delay={0.1}>
-          <p className="section-lead">
-            The data construction, metrics, and explanations follow the published
-            Medicare-fraud work of the Florida Atlantic University group (Khoshgoftaar,
-            Bauder, Herland, Johnson, Hancock). Models are fit with BreezeML. The data
-            is real US government records, with no private patient information.
-          </p>
+        <Reveal delay={0.2}>
+          <div className="mt-12 flex flex-wrap justify-center gap-4">
+            <Link
+              href="/solution"
+              className="rounded-sm bg-crimson px-7 py-3 text-sm tracking-wide text-primary-foreground transition hover:bg-crimson-bright"
+            >
+              Explore the solution
+            </Link>
+            <Link
+              href="/about"
+              className="rounded-sm border border-gold/30 px-7 py-3 text-sm tracking-wide text-washi/90 transition hover:border-gold/70 hover:text-gold"
+            >
+              About the project
+            </Link>
+          </div>
         </Reveal>
       </Section>
-
-      {/* ===== FOOTER ===== */}
-      <footer className="relative border-t border-border/60 px-6 py-12 text-center">
-        <Torii className="mx-auto mb-5 h-10 w-12 text-crimson/70" />
-        <Seal kanji="監" className="mx-auto mb-4" />
-        <p className="font-heading text-sm tracking-[0.25em] text-washi/80">
-          PROVIDER FRAUD RISK EXPLORER
-        </p>
-        <p className="mt-2 text-xs text-ash">
-          Built by Akash and Shruti Pingle · Real CMS + LEIE data · Not for clinical or
-          enforcement use
-        </p>
-      </footer>
     </main>
-  );
-}
-
-/* ---------- small layout helpers ---------- */
-
-function Section({ children, id }: { children: React.ReactNode; id?: string }) {
-  return (
-    <section id={id} className="mx-auto max-w-5xl px-6 py-24 text-center">
-      {children}
-    </section>
-  );
-}
-
-function Kicker({ children, icon }: { children: React.ReactNode; icon: React.ReactNode }) {
-  return (
-    <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-gold/25 bg-sumi/60 px-4 py-1.5 text-[11px] tracking-[0.3em] text-gold">
-      {icon}
-      {children}
-    </div>
-  );
-}
-
-function Lantern({ children, className }: { children: React.ReactNode; className?: string }) {
-  function onMove(e: React.MouseEvent<HTMLDivElement>) {
-    const el = e.currentTarget;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--mx", `${e.clientX - r.left}px`);
-    el.style.setProperty("--my", `${e.clientY - r.top}px`);
-  }
-  return (
-    <div
-      onMouseMove={onMove}
-      className={
-        "spotlight-card paper-grain rounded-md border border-border bg-sumi/70 p-7 transition duration-300 hover:-translate-y-1 hover:border-gold/40 " +
-        (className ?? "")
-      }
-    >
-      {children}
-    </div>
   );
 }

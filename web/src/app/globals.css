@@ -78,7 +78,7 @@
     @apply bg-background text-foreground;
     background-image:
       radial-gradient(1200px 600px at 75% -10%, rgba(177, 39, 31, 0.13), transparent 60%),
-      radial-gradient(900px 520px at 8% 110%, rgba(199, 154, 74, 0.09), transparent 60%);
+      radial-gradient(900px 520px at 8% 110%, rgba(74, 130, 60, 0.08), transparent 60%);
     background-attachment: fixed;
   }
 }
@@ -177,6 +177,15 @@
   );
 }
 .spotlight-card:hover::before { opacity: 1; }
+
+/* meteors (Magic UI / 21st.dev) */
+@keyframes meteor {
+  0% { transform: rotate(215deg) translateX(0); opacity: 1; }
+  70% { opacity: 1; }
+  100% { transform: rotate(215deg) translateX(-700px); opacity: 0; }
+}
+.meteor { animation: meteor linear infinite; }
+@media (prefers-reduced-motion: reduce) { .meteor { animation: none; opacity: 0; } }
 
 /* shimmering gold underline sweep */
 @keyframes shine {
