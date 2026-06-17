@@ -24,6 +24,7 @@ skills-lock.json
 models/*.joblib
 models/*.json
 !models/metrics.json
+!models/pu_metrics.json
 
 # Build scripts and generated figures (excluded from repo)
 build_charts.py
