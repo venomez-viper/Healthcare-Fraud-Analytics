@@ -19,16 +19,17 @@ export default function AnimatedTextCycle({
   const [width, setWidth] = useState("auto");
   const measureRef = useRef<HTMLDivElement>(null);
 
-  // Get the width of the current word
+  // Lock the slot to the WIDEST word so the line never reflows
+  // (prevents the centered headline oscillating side-to-side on each swap).
   useEffect(() => {
-    if (measureRef.current) {
-      const elements = measureRef.current.children;
-      if (elements.length > currentIndex) {
-        const newWidth = elements[currentIndex].getBoundingClientRect().width;
-        setWidth(`${newWidth}px`);
-      }
-    }
-  }, [currentIndex]);
+    if (!measureRef.current) return;
+    const elements = Array.from(measureRef.current.children);
+    if (elements.length === 0) return;
+    const maxWidth = Math.max(
+      ...elements.map((el) => el.getBoundingClientRect().width)
+    );
+    setWidth(`${maxWidth}px`);
+  }, [words]);
 
   useEffect(() => {
     const timer = setInterval(() => {
