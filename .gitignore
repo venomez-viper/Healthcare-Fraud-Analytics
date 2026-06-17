@@ -27,6 +27,7 @@ models/*.json
 !models/pu_metrics.json
 !models/anomaly_metrics.json
 !models/shap_explanations.json
+!models/nnpu_metrics.json
 
 # Build scripts and generated figures (excluded from repo)
 build_charts.py
