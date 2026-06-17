@@ -130,8 +130,8 @@
 
 /* ===== Ghost of Tsushima scenery animations ===== */
 @keyframes sway {
-  0%, 100% { transform: rotate(calc(var(--lean) - 5deg)); }
-  50% { transform: rotate(calc(var(--lean) + 7deg)); }
+  0%, 100% { transform: rotate(calc(var(--lean) - 2deg)); }
+  50% { transform: rotate(calc(var(--lean) + 2.5deg)); }
 }
 .grass-blade {
   animation-name: sway;

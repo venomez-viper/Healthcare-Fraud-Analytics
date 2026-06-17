@@ -63,9 +63,9 @@ export function GrassBand() {
   const blades = Array.from({ length: 46 }).map((_, i) => {
     const x = (i / 45) * 100;
     const h = 70 + ((i * 37) % 60);
-    const lean = ((i * 53) % 28) - 14;
+    const lean = ((i * 53) % 12) - 6;
     const delay = ((i * 17) % 100) / 100;
-    const dur = 3 + ((i * 7) % 20) / 10;
+    const dur = 5.5 + ((i * 7) % 40) / 10;
     const op = 0.35 + ((i * 29) % 50) / 140;
     return { x, h, lean, delay, dur, op, i };
   });

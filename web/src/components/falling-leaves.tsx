@@ -28,7 +28,7 @@ function Petal({
       initial={{ y: -40, rotate: 0, opacity: 0 }}
       animate={{
         y: ["-5vh", "105vh"],
-        x: [0, 40, -25, 35, 0],
+        x: [0, 18, -12, 16, 0],
         rotate: [0, 160, 300, 420],
         opacity: [0, 0.95, 0.95, 0.6, 0],
       }}
