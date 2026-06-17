@@ -49,7 +49,7 @@ export default function Home() {
           aria-hidden
           className="absolute inset-0 -z-[1] bg-gradient-to-b from-ink/40 via-transparent to-[#0a0705]"
         />
-        <Meteors number={10} />
+        <Meteors number={4} />
         <CrimsonSun className="left-1/2 top-[20%] -translate-x-1/2 -translate-y-1/2" />
         <MountainRidges />
         <Ronin className="bottom-[5.5rem] left-[60%] z-[2] h-[34vh] w-[21vh] drop-shadow-[0_8px_24px_rgba(0,0,0,0.7)] md:left-[64%]" />

@@ -210,7 +210,10 @@ export function Component({ rightComponent, leftComponent }: DiagonalSliderProps
     const [position, setPosition] = useState(60)
     const [displayPos, setDisplayPos] = useState(60)
     const [time, setTime] = useState(0)
+    const [hovering, setHovering] = useState(false)
 
+    // Only animate while the user is interacting (or settling back). When idle
+    // the loop stops entirely, so this never re-renders or churns the GPU off-screen.
     useEffect(() => {
         let raf = 0
         let last = performance.now()
@@ -218,26 +221,33 @@ export function Component({ rightComponent, leftComponent }: DiagonalSliderProps
             const dt = Math.min(ELECTRIC_CONFIG.timeClampSec, (now - last) / 1000)
             last = now
             setTime(t => t + dt)
+            let settled = false
             setDisplayPos(p => {
-                const target = position
                 const stiffness = ELECTRIC_CONFIG.easeStiffness
-                return p + (target - p) * (1 - Math.exp(-stiffness * dt))
+                const np = p + (position - p) * (1 - Math.exp(-stiffness * dt))
+                if (!hovering && Math.abs(np - position) < 0.05) settled = true
+                return np
             })
+            if (!hovering && settled) return // idle: stop the loop
             raf = requestAnimationFrame(tick)
         }
         raf = requestAnimationFrame(tick)
         return () => cancelAnimationFrame(raf)
-    }, [position])
+    }, [position, hovering])
 
     const handleMouseMove = (e: React.MouseEvent) => {
         if (!containerRef.current) return
+        setHovering(true)
         const rect = containerRef.current.getBoundingClientRect()
         const x = ((e.clientX - rect.left) / rect.width) * 100
         if (x < 50) setPosition(110)
         else setPosition(20)
     }
 
-    const handleMouseLeave = () => setPosition(60)
+    const handleMouseLeave = () => {
+        setHovering(false)
+        setPosition(60)
+    }
 
     const clamp01_100 = (v: number) => Math.max(0, Math.min(100, v))
 
@@ -396,9 +406,11 @@ export function Component({ rightComponent, leftComponent }: DiagonalSliderProps
             >
                 <div className="h-8 w-[120vw] -translate-x-16 translate-y-2">
                     <div className="pointer-events-none relative h-full w-full opacity-90">
-                        <div className="pointer-events-none absolute inset-0 z-20 h-[100vh] w-[100vw] translate-x-[10%] -translate-y-[48%] scale-150">
-                            <ShaderCanvas className="pointer-events-none h-[100vh] w-[200vw]" />
-                        </div>
+                        {hovering && (
+                            <div className="pointer-events-none absolute inset-0 z-20 h-[100vh] w-[100vw] translate-x-[10%] -translate-y-[48%] scale-150">
+                                <ShaderCanvas className="pointer-events-none h-[100vh] w-[200vw]" />
+                            </div>
+                        )}
                     </div>
                 </div>
             </motion.div>

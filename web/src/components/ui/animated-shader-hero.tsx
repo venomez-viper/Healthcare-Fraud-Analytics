@@ -90,25 +90,37 @@ export function ShaderBackground({ className = "" }: { className?: string }) {
     const uRes = gl.getUniformLocation(program, "resolution");
     const uTime = gl.getUniformLocation(program, "time");
 
-    const dpr = Math.max(1, 0.5 * window.devicePixelRatio);
+    // Render at reduced resolution to keep the GPU cost low (smoke hides the blur).
+    const scale = 0.6;
     const resize = () => {
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
+      canvas.width = Math.round(window.innerWidth * scale);
+      canvas.height = Math.round(window.innerHeight * scale);
       gl.viewport(0, 0, canvas.width, canvas.height);
     };
     resize();
     window.addEventListener("resize", resize);
 
-    let raf = 0;
-    const render = (now: number) => {
+    const drawFrame = (t: number) => {
       gl.clearColor(0, 0, 0, 1);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.uniform2f(uRes, canvas.width, canvas.height);
-      gl.uniform1f(uTime, now * 1e-3);
+      gl.uniform1f(uTime, t);
       gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
-      if (!reduce) raf = requestAnimationFrame(render);
     };
-    render(0);
+
+    let raf = 0;
+    if (reduce) {
+      drawFrame(0);
+    } else {
+      let last = -1000;
+      const render = (now: number) => {
+        raf = requestAnimationFrame(render);
+        if (now - last < 40) return; // throttle to ~25fps
+        last = now;
+        drawFrame(now * 1e-3 * 0.28); // slow, gentle drift (was 1.0)
+      };
+      render(0);
+    }
 
     return () => {
       window.removeEventListener("resize", resize);
