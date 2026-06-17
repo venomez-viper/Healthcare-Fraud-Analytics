@@ -21,3 +21,10 @@ build_charts.py
 build_docs.py
 build_illustrations.py
 figures/
+
+# Data (large / redistribution-restricted) - keep folders, ignore contents
+data/raw/*
+data/interim/*
+data/processed/*
+!data/**/.gitkeep
+cms_catalog.json
