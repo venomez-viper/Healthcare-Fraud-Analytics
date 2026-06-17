@@ -86,7 +86,21 @@ both sides), **random undersampling** of the majority on train (Johnson and
 Khoshgoftaar 2019), and **top-k precision under class rarity** (Bauder and
 Khoshgoftaar 2019).
 
-Evaluated on a held-out, provider-grouped test set (1.5M provider-years, 331 known
+### Train / test split
+
+The 6.0M-row panel is split **75% train / 25% test**, grouped by **provider (NPI)**
+using `GroupShuffleSplit`, so a provider's 2019-2023 rows never appear on both
+sides (an assertion enforces this). Random undersampling is applied to the **train
+side only**; the test set stays full and untouched at the true 0.022% prevalence,
+so evaluation reflects real-world imbalance.
+
+| | Provider-years | Known fraud |
+|---|---|---|
+| Train (75%) | 4,504,136 | 944 |
+| Test (25%) | 1,501,666 | 331 |
+| Train after RUS | ~19,800 | 944 |
+
+Evaluated on the held-out, provider-grouped test set (1.5M provider-years, 331 known
 fraud):
 
 | Model | ROC-AUC | Top 1% caught | Top 5% caught | Top 10% caught |
