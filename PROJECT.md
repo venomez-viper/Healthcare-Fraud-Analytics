@@ -1,7 +1,7 @@
 # Healthcare Provider Fraud Risk Explorer
 ## Project Source Document (Single Source of Truth)
 
-**Owners:** Akash and Shruthi
+**Owners:** Akash and Shruti Pingle
 **Status:** Active build
 **Last updated:** June 2026
 

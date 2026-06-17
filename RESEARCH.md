@@ -1,7 +1,7 @@
 # Research Foundation: Literature Review
 ## Healthcare Provider Fraud Risk Explorer
 
-**Compiled by:** Akash and Shruthi
+**Compiled by:** Akash and Shruti Pingle
 **Scope:** Current peer-reviewed work, 2024 to 2026, grounding the design choices in PROJECT.md
 
 > This is the evidence base. Each cutting-edge feature we plan maps to a real, recent paper.
