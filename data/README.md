@@ -24,7 +24,12 @@ Pooled 2019-2023 panel (the supervised modeling table, more positives):
 for y in 2019 2020 2021 2022 2023; do python src/download_data.py --year $y; done
 python src/build_dataset.py --pool 2019,2020,2021,2022,2023   # -> provider_year_panel_2019_2023.parquet
 python src/prepare_data.py  --in data/processed/provider_year_panel_2019_2023.parquet  # -> *_clean.parquet
+python src/build_features.py --in data/processed/provider_year_panel_2019_2023_clean.parquet  # -> *_features.parquet
 ```
+
+The `*_features.parquet` (~1.3 GB) adds Layer 2 peer-relative features and is
+regenerable, so it is not committed. The `*_clean.parquet` IS shared via LFS; run
+`build_features.py` on it to get the full modeling matrix.
 
 ## Sources
 
