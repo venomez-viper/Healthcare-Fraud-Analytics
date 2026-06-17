@@ -20,6 +20,11 @@ Thumbs.db
 .agents/
 skills-lock.json
 
+# Model binaries (regenerable); keep the metrics summary as a result record
+models/*.joblib
+models/*.json
+!models/metrics.json
+
 # Build scripts and generated figures (excluded from repo)
 build_charts.py
 build_docs.py
