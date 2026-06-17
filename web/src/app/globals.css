@@ -1,0 +1,133 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-heading: var(--font-mincho);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  /* Ghost of Tsushima palette */
+  --color-ink: var(--ink);
+  --color-sumi: var(--sumi);
+  --color-crimson: var(--crimson);
+  --color-crimson-bright: var(--crimson-bright);
+  --color-gold: var(--gold);
+  --color-washi: var(--washi);
+  --color-ash: var(--ash);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+}
+
+:root {
+  --ink: #0b0907;
+  --sumi: #15100c;
+  --crimson: #b1271f;
+  --crimson-bright: #e0463a;
+  --gold: #c79a4a;
+  --washi: #e9dcc3;
+  --ash: #9c8f78;
+
+  --background: #0b0907;
+  --foreground: #e9dcc3;
+  --card: #15100c;
+  --card-foreground: #e9dcc3;
+  --popover: #15100c;
+  --popover-foreground: #e9dcc3;
+  --primary: #b1271f;
+  --primary-foreground: #f6ece0;
+  --secondary: #1d1610;
+  --secondary-foreground: #e9dcc3;
+  --muted: #1a1410;
+  --muted-foreground: #9c8f78;
+  --accent: #c79a4a;
+  --accent-foreground: #15100c;
+  --destructive: #b1271f;
+  --border: rgba(199, 154, 74, 0.16);
+  --input: rgba(199, 154, 74, 0.14);
+  --ring: #b1271f;
+  --radius: 0.35rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image:
+      radial-gradient(1200px 600px at 75% -10%, rgba(177, 39, 31, 0.13), transparent 60%),
+      radial-gradient(900px 520px at 8% 110%, rgba(199, 154, 74, 0.09), transparent 60%);
+    background-attachment: fixed;
+  }
+}
+
+/* Washi paper grain overlay */
+.paper-grain {
+  position: relative;
+}
+.paper-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.lantern-glow {
+  box-shadow: 0 0 0 1px rgba(199, 154, 74, 0.18), 0 22px 70px -30px rgba(177, 39, 31, 0.6);
+}
+.text-glow {
+  text-shadow: 0 0 30px rgba(224, 70, 58, 0.4);
+}
+.hairline {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(199, 154, 74, 0.5), transparent);
+}
+.vertical-jp {
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  letter-spacing: 0.3em;
+}
+.section-title {
+  font-family: var(--font-mincho), serif;
+  font-weight: 700;
+  font-size: clamp(1.9rem, 4vw, 3rem);
+  line-height: 1.15;
+  color: var(--washi);
+  max-width: 46rem;
+  margin-inline: auto;
+}
+.section-lead {
+  margin: 1.5rem auto 0;
+  max-width: 42rem;
+  font-size: 1.075rem;
+  line-height: 1.8;
+  color: var(--ash);
+}
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: var(--ink); }
+::-webkit-scrollbar-thumb { background: #2a201700; border: 2px solid transparent;
+  background-color: rgba(199,154,74,0.25); border-radius: 8px; }
