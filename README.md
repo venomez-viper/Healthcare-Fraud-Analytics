@@ -49,6 +49,9 @@ python src/prepare_data.py --in data/processed/provider_year_panel_2019_2023_cle
 
 # 4. Layer 2 peer-relative features (z-score / percentile / peer-median ratio)
 python src/build_features.py --in data/processed/provider_year_panel_2019_2023_clean.parquet
+
+# 5. Train + evaluate the supervised models (top-k precision)
+python src/train_model.py --in data/processed/provider_year_panel_2019_2023_features.parquet
 ```
 
 | Script | Does |
@@ -57,6 +60,7 @@ python src/build_features.py --in data/processed/provider_year_panel_2019_2023_c
 | `src/build_dataset.py` | NPI join + LEIE fraud labeling; `--pool` builds the multi-year panel with temporal labeling. |
 | `src/prepare_data.py` | Data-quality report, conservative cleaning, Layer 1 absolute ratios. |
 | `src/build_features.py` | Layer 2 peer-relative features within each specialty x year peer group. |
+| `src/train_model.py` | Provider-grouped split, RUS imbalance handling, fits via BreezeML, top-k evaluation. |
 
 ## Feature engineering
 
@@ -72,6 +76,44 @@ The peer features carry strong, learnable signal in the tail where fraud lives:
 | `tot_medicare_payment` | 17.2% | **3.4x** |
 
 They also pre-write the Risk Explorer's plain-English reasons ("bills 2.5 SD above same-specialty peers").
+
+## Modeling and results
+
+Models are fit with **[BreezeML](https://github.com/venomez-viper/breezeml)** (our own
+scikit-learn wrapper). Because BreezeML does not cover imbalance or top-k metrics,
+we add the paper-backed pieces ourselves: a **provider-grouped split** (no NPI on
+both sides), **random undersampling** of the majority on train (Johnson and
+Khoshgoftaar 2019), and **top-k precision under class rarity** (Bauder and
+Khoshgoftaar 2019).
+
+Evaluated on a held-out, provider-grouped test set (1.5M provider-years, 331 known
+fraud):
+
+| Model | ROC-AUC | Top 1% caught | Top 5% caught | Top 10% caught |
+|---|---|---|---|---|
+| Logistic Regression (scaled) | 0.747 | 12.1% | 31.7% | 43.2% |
+| **Gradient Boosting** | **0.809** | **17.2%** | **39.6%** | **55.6%** |
+| XGBoost (scale_pos_weight) | 0.767 | 16.9% | 34.4% | 45.6% |
+
+Gradient Boosting's **ROC-AUC of 0.809 matches the published Part B benchmark**
+(Herland, Khoshgoftaar and Bauder 2018: 0.805 to 0.816). Reviewing the top 10% of
+the ranked list surfaces ~56% of known fraud.
+
+**Honest caveat on precision.** Absolute precision is low (top 1% ~0.4%) for two
+real reasons, not model failure: test prevalence is 0.022% (so this is still ~17x
+random), and the LEIE labels are incomplete (most real fraud is unlabeled and sits
+in the data as "clean"), which understates precision. ROC-AUC and top-k recall are
+the trustworthy signals here.
+
+### Research direction (next)
+
+The incomplete-label problem above is also an opportunity. The standard literature
+treats this as supervised classification, but with positives + unlabeled and no
+true negatives it is really a **Positive-Unlabeled (PU) learning** problem. We are
+testing whether modeling it as PU, and modeling each provider's multi-year
+**trajectory** (drift into fraud) over the 2019-2023 panel, beats the supervised
+snapshot baseline above. Anomaly detection (Isolation Forest) and a per-provider
+LLM "why flagged" writeup are also on the roadmap.
 
 ## For collaborators (getting the data)
 
@@ -90,8 +132,8 @@ python src/build_features.py --in data/processed/provider_year_panel_2019_2023_c
 |---|---|---|
 | A. Data foundation | CMS Part B + LEIE -> labeled provider-year panel; conservative cleaning. | Done |
 | B. Feature engineering | Absolute behavior + peer-relative position (z / percentile / median ratio). | Done |
-| C. Modeling | Supervised (LogReg -> XGBoost) + anomaly detection (Isolation Forest). | Next |
-| D. Evaluation | Precision at top-k (1/5/10%) primary; grouped split so providers don't leak. | Next |
+| C. Modeling | Supervised baseline (LogReg, GradientBoosting, XGBoost) via BreezeML. Anomaly track + PU learning next. | Baseline done |
+| D. Evaluation | Precision at top-k (1/5/10%) primary; grouped split so providers don't leak. | Done |
 | E. Risk Explorer | Ranked queue + per-provider detail view + SHAP and peer-deviation explanations. | Planned |
 
 ## Repository contents
@@ -100,14 +142,16 @@ python src/build_features.py --in data/processed/provider_year_panel_2019_2023_c
 |---|---|
 | [`PROJECT.md`](PROJECT.md) | Canonical project document (scope, objective, method, success criteria). |
 | [`RESEARCH.md`](RESEARCH.md) | Literature review (2024-2026) grounding each design choice. |
-| `src/` | The reproducible data + feature pipeline. |
+| `src/` | The reproducible data + feature + model pipeline. |
+| `models/metrics.json` | Saved evaluation metrics for the trained models. |
 | [`data/README.md`](data/README.md) | Data provenance, labeling logic, known characteristics. |
+| [`CITATIONS.bib`](CITATIONS.bib) | BibTeX for the foundational papers. |
 | `requirements.txt` | Python dependencies. |
 | `SynPUF_DUG.pdf` | CMS DE-SynPUF data user guide (reference for the alternative dataset). |
 
 ## Tech stack
 
-Python, pandas, scikit-learn, XGBoost, SHAP, Matplotlib/Seaborn. Optional dashboard: Streamlit.
+Python, pandas, scikit-learn, [BreezeML](https://github.com/venomez-viper/breezeml), XGBoost, SHAP, Matplotlib/Seaborn. Optional dashboard: Streamlit.
 
 ## Acknowledgments
 
