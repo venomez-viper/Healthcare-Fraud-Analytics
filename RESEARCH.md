@@ -2,11 +2,29 @@
 ## Healthcare Provider Fraud Risk Explorer
 
 **Compiled by:** Akash and Shruti Pingle
-**Scope:** Current peer-reviewed work, 2024 to 2026, grounding the design choices in PROJECT.md
+**Scope:** The foundational methods this repo directly implements (2018 to 2023), plus current frontier work (2024 to 2026) for the stretch goals, all grounding the design choices in PROJECT.md
 
-> This is the evidence base. Each cutting-edge feature we plan maps to a real, recent paper.
+> This is the evidence base. Each thing we build maps to a real, published paper, and we credit the authors who established the method.
 
 ---
+
+## 0. Foundational methods we directly implement (and credit)
+
+Our actual pipeline (CMS Medicare Part B "by Provider" joined to the OIG LEIE on
+NPI, provider-level labeling, extreme class imbalance, top-k / class-rarity
+evaluation) follows the body of work from **Taghi M. Khoshgoftaar's group at
+Florida Atlantic University**. We are standing on their shoulders.
+
+| What we built | Paper we implement | Authors we credit |
+|---|---|---|
+| CMS Part B + LEIE NPI labeling, provider-level, LR baseline | *Big Data fraud detection using multiple Medicare data sources*, **J. Big Data** 5:29, 2018 | **Matthew Herland, Taghi M. Khoshgoftaar, Richard A. Bauder** |
+| Why we lead with top-k precision under class rarity (not accuracy) | *The effects of class rarity on the evaluation of supervised healthcare fraud detection models*, **J. Big Data** 6:21, 2019 | **Richard A. Bauder, Taghi M. Khoshgoftaar** |
+| Imbalance handling: random over/under-sampling (ROS / RUS / ROS-RUS), class weighting | *Medicare fraud detection using neural networks*, **J. Big Data** 6:63, 2019 | **Justin M. Johnson, Taghi M. Khoshgoftaar** |
+| Per-provider SHAP "why flagged" explanations | *Explainable machine learning models for Medicare fraud detection*, **J. Big Data** 10:154, 2023 | **John T. Hancock, Taghi M. Khoshgoftaar** |
+
+These four papers are why the project is shaped the way it is: the 99.97 / 0.03
+imbalance, the LEIE-as-labels construction, the top-k metric, and the mandatory
+explanations are all established results, not our invention.
 
 ## 1. The problem is large, and the literature agrees on the hard parts
 
@@ -47,3 +65,10 @@
 8. Unsupervised anomaly detection of healthcare providers using generative adversarial networks. PMC7134221
 9. LLM-assisted financial fraud detection with reinforcement learning. *Algorithms*, 2025, 18(12):792
 10. CMS Linkable 2008 to 2010 Medicare DE-SynPUF User Manual, 2013 (in this folder: SynPUF_DUG.pdf)
+
+### Foundational methods (Section 0)
+
+11. Herland M, Khoshgoftaar TM, Bauder RA. Big Data fraud detection using multiple Medicare data sources. *Journal of Big Data*, 2018, 5:29. doi:10.1186/s40537-018-0138-3
+12. Bauder RA, Khoshgoftaar TM. The effects of class rarity on the evaluation of supervised healthcare fraud detection models. *Journal of Big Data*, 2019, 6:21. doi:10.1186/s40537-019-0181-8
+13. Johnson JM, Khoshgoftaar TM. Medicare fraud detection using neural networks. *Journal of Big Data*, 2019, 6:63. doi:10.1186/s40537-019-0225-0
+14. Hancock JT, Khoshgoftaar TM. Explainable machine learning models for Medicare fraud detection. *Journal of Big Data*, 2023, 10:154. doi:10.1186/s40537-023-00821-5
