@@ -22,9 +22,17 @@ build_docs.py
 build_illustrations.py
 figures/
 
-# Data (large / redistribution-restricted) - keep folders, ignore contents
+# Data: ignore the 2.3 GB raw CMS CSVs and the redundant intermediate panel.
+# Raw is regenerable via src/download_data.py. The labeled, model-ready files
+# below ARE shared (via Git LFS) so collaborators have the exact dataset.
 data/raw/*
 data/interim/*
 data/processed/*
 !data/**/.gitkeep
+# Shared data (tracked via Git LFS, see .gitattributes)
+!data/raw/LEIE_exclusions.csv
+!data/processed/provider_fraud_2023.parquet
+!data/processed/provider_year_panel_2019_2023_clean.parquet
+!data/processed/provider_fraud_2023_sample.csv
+!data/processed/provider_year_panel_2019_2023_sample.csv
 cms_catalog.json
