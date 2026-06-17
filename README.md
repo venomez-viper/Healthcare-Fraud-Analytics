@@ -109,17 +109,17 @@ python src/build_features.py --in data/processed/provider_year_panel_2019_2023_c
 
 Python, pandas, scikit-learn, XGBoost, SHAP, Matplotlib/Seaborn. Optional dashboard: Streamlit.
 
-## Acknowledgments — standing on their shoulders
+## Acknowledgments
 
-This project implements established methods from the Medicare-fraud research
-community, above all **Taghi M. Khoshgoftaar's group at Florida Atlantic
+This project implements established methods from the Medicare fraud research
+community, primarily **Taghi M. Khoshgoftaar's group at Florida Atlantic
 University**. The data construction, metric choices, imbalance handling, and
-explanations here are their results, not ours. Credit where it is due:
+explanations come from their published work:
 
-- **Matthew Herland, Taghi M. Khoshgoftaar, Richard A. Bauder** — *Big Data fraud detection using multiple Medicare data sources* (J. Big Data, 2018). The CMS Part B + LEIE-on-NPI labeling we build on.
-- **Richard A. Bauder, Taghi M. Khoshgoftaar** — *The effects of class rarity on the evaluation of supervised healthcare fraud detection models* (J. Big Data, 2019). Why we lead with top-k precision, not accuracy.
-- **Justin M. Johnson, Taghi M. Khoshgoftaar** — *Medicare fraud detection using neural networks* (J. Big Data, 2019). ROS / RUS / ROS-RUS sampling for extreme imbalance.
-- **John T. Hancock, Taghi M. Khoshgoftaar** — *Explainable machine learning models for Medicare fraud detection* (J. Big Data, 2023). The SHAP "why flagged" explanations.
+- **Matthew Herland, Taghi M. Khoshgoftaar, Richard A. Bauder.** *Big Data fraud detection using multiple Medicare data sources* (J. Big Data, 2018). Basis for the CMS Part B plus LEIE-on-NPI labeling.
+- **Richard A. Bauder, Taghi M. Khoshgoftaar.** *The effects of class rarity on the evaluation of supervised healthcare fraud detection models* (J. Big Data, 2019). Basis for leading with top-k precision instead of accuracy.
+- **Justin M. Johnson, Taghi M. Khoshgoftaar.** *Medicare fraud detection using neural networks* (J. Big Data, 2019). Basis for ROS / RUS / ROS-RUS sampling under extreme imbalance.
+- **John T. Hancock, Taghi M. Khoshgoftaar.** *Explainable machine learning models for Medicare fraud detection* (J. Big Data, 2023). Basis for the SHAP per-provider explanations.
 
 Frontier methods for the stretch goals (GNN fraud rings, LLM investigator agents,
 conformal triage) and full citations are in [`RESEARCH.md`](RESEARCH.md).
