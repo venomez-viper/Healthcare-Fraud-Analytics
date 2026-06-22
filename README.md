@@ -213,6 +213,7 @@ python src/build_features.py --in data/processed/provider_year_panel_2019_2023_c
 | [`PROJECT.md`](PROJECT.md) | Canonical project document (scope, objective, method, success criteria). |
 | [`RESEARCH.md`](RESEARCH.md) | Literature review (2024-2026) grounding each design choice. |
 | `src/` | The reproducible data + feature + model pipeline. |
+| `Makefile` | One-command wrapper around the `src/` pipeline (`make pipeline`, `make train`, `make help`). |
 | `models/metrics.json` | Saved evaluation metrics for the trained models. |
 | [`data/README.md`](data/README.md) | Data provenance, labeling logic, known characteristics. |
 | [`CITATIONS.bib`](CITATIONS.bib) | BibTeX for the foundational papers. |
