@@ -1,0 +1,132 @@
+{
+"testTotal": 1501666,
+"fraudTotal": 331,
+"points": [
+{
+"pct": 0.1,
+"reviewed": 1502,
+"caught": 29,
+"recall": 0.0876
+},
+{
+"pct": 0.25,
+"reviewed": 3754,
+"caught": 51,
+"recall": 0.1541
+},
+{
+"pct": 0.5,
+"reviewed": 7508,
+"caught": 78,
+"recall": 0.2356
+},
+{
+"pct": 0.75,
+"reviewed": 11262,
+"caught": 91,
+"recall": 0.2749
+},
+{
+"pct": 1,
+"reviewed": 15017,
+"caught": 109,
+"recall": 0.3293
+},
+{
+"pct": 1.5,
+"reviewed": 22525,
+"caught": 122,
+"recall": 0.3686
+},
+{
+"pct": 2,
+"reviewed": 30033,
+"caught": 137,
+"recall": 0.4139
+},
+{
+"pct": 3,
+"reviewed": 45050,
+"caught": 150,
+"recall": 0.4532
+},
+{
+"pct": 4,
+"reviewed": 60067,
+"caught": 166,
+"recall": 0.5015
+},
+{
+"pct": 5,
+"reviewed": 75083,
+"caught": 181,
+"recall": 0.5468
+},
+{
+"pct": 7,
+"reviewed": 105117,
+"caught": 196,
+"recall": 0.5921
+},
+{
+"pct": 10,
+"reviewed": 150167,
+"caught": 215,
+"recall": 0.6495
+},
+{
+"pct": 12,
+"reviewed": 180200,
+"caught": 225,
+"recall": 0.6798
+},
+{
+"pct": 15,
+"reviewed": 225250,
+"caught": 243,
+"recall": 0.7341
+},
+{
+"pct": 20,
+"reviewed": 300333,
+"caught": 258,
+"recall": 0.7795
+},
+{
+"pct": 25,
+"reviewed": 375416,
+"caught": 273,
+"recall": 0.8248
+},
+{
+"pct": 30,
+"reviewed": 450500,
+"caught": 295,
+"recall": 0.8912
+},
+{
+"pct": 40,
+"reviewed": 600666,
+"caught": 309,
+"recall": 0.9335
+},
+{
+"pct": 50,
+"reviewed": 750833,
+"caught": 316,
+"recall": 0.9547
+},
+{
+"pct": 75,
+"reviewed": 1126250,
+"caught": 325,
+"recall": 0.9819
+},
+{
+"pct": 100,
+"reviewed": 1501666,
+"caught": 331,
+"recall": 1.0
+}
+]
+}

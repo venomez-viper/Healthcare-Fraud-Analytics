@@ -9,6 +9,7 @@ import { Torii } from "@/components/scenery";
 const NAV = [
   { href: "/", label: "Home" },
   { href: "/atlas", label: "Atlas" },
+  { href: "/simulator", label: "Simulator" },
   { href: "/solution", label: "Solution" },
   { href: "/methodology", label: "Methodology" },
   { href: "/about", label: "About" },
