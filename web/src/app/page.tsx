@@ -49,6 +49,16 @@ export default function Home() {
           aria-hidden
           className="absolute inset-0 -z-[1] bg-gradient-to-b from-ink/40 via-transparent to-[#0a0705]"
         />
+        {/* Solid dark left/right edge mask so the shader's glow never pulses at
+            the screen edges (that edge shimmer read as flicker). */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-[1]"
+          style={{
+            background:
+              "linear-gradient(90deg, #0a0705 0%, rgba(10,7,5,0) 14%, rgba(10,7,5,0) 86%, #0a0705 100%)",
+          }}
+        />
         <Meteors number={4} />
         <CrimsonSun className="left-1/2 top-[20%] -translate-x-1/2 -translate-y-1/2" />
         <MountainRidges />
@@ -70,7 +80,7 @@ export default function Home() {
             <br />
             that{" "}
             <AnimatedTextCycle
-              words={["hides.", "lies.", "bills.", "vanishes.", "cheats."]}
+              words={["hides.", "lurks.", "cheats.", "bills."]}
               interval={2600}
               className="text-crimson-bright text-glow"
             />

@@ -19,15 +19,15 @@ export default function AnimatedTextCycle({
   const [width, setWidth] = useState("auto");
   const measureRef = useRef<HTMLDivElement>(null);
 
-  // Size the slot to the current word (dynamic, no trailing gap).
+  // Fix the slot to the WIDEST word so the centered line never reflows
+  // left-right on each swap. The word is centered inside this stable slot.
   useEffect(() => {
     if (!measureRef.current) return;
-    const elements = measureRef.current.children;
-    if (elements.length > currentIndex) {
-      const newWidth = elements[currentIndex].getBoundingClientRect().width;
-      setWidth(`${newWidth}px`);
-    }
-  }, [currentIndex]);
+    const els = Array.from(measureRef.current.children);
+    if (els.length === 0) return;
+    const max = Math.max(...els.map((el) => el.getBoundingClientRect().width));
+    setWidth(`${Math.ceil(max)}px`);
+  }, [words]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -79,17 +79,10 @@ export default function AnimatedTextCycle({
         ))}
       </div>
 
-      {/* Visible animated word */}
-      <motion.span
-        className="relative inline-block"
-        animate={{
-          width,
-          transition: {
-            type: "tween",
-            duration: 0.3,
-            ease: "easeInOut",
-          },
-        }}
+      {/* Visible animated word — fixed-width, centered slot (no reflow) */}
+      <span
+        className="relative inline-flex justify-start align-bottom"
+        style={{ width, whiteSpace: "nowrap" }}
       >
         <AnimatePresence mode="wait" initial={false}>
           <motion.span
@@ -104,7 +97,7 @@ export default function AnimatedTextCycle({
             {words[currentIndex]}
           </motion.span>
         </AnimatePresence>
-      </motion.span>
+      </span>
     </>
   );
 }
