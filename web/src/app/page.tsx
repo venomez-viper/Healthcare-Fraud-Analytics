@@ -21,6 +21,7 @@ import AnimatedTextCycle from "@/components/ui/animated-text-cycle";
 import { Typewriter } from "@/components/ui/typewriter-text";
 import { Features } from "@/components/ui/features-8";
 import { Component as LightningSplit } from "@/components/ui/lightning-split";
+import { TrajectorySignal } from "@/components/atlas/trajectory-signal";
 
 type Provider = {
   rank: number;
@@ -262,8 +263,13 @@ export default function Home() {
             the future. That nearly doubled the fraud caught in the critical top slice.
           </p>
         </Reveal>
+        <Reveal delay={0.12}>
+          <div className="mt-10">
+            <TrajectorySignal />
+          </div>
+        </Reveal>
         <Reveal delay={0.15}>
-          <div className="mt-10 h-[60vh] w-full overflow-hidden rounded-md border border-border lantern-glow">
+          <div className="mt-8 h-[60vh] w-full overflow-hidden rounded-md border border-border lantern-glow">
             <LightningSplit
               leftComponent={
                 <div className="flex h-full w-full flex-col items-center justify-center bg-[#0b0907] p-8 text-center">
