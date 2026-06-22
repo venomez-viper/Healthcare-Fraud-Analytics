@@ -119,7 +119,7 @@ export default function Footer4Col() {
               </span>
             </p>
             <p className="mt-4 text-sm text-ash/70 sm:order-first sm:mt-0">
-              &copy; 2026 Akash &amp; Shruti Pingle
+              &copy; 2026 Akash Anipakalu Giridhar &amp; Shruti Pingle
             </p>
           </div>
         </div>

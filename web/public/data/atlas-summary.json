@@ -1,43 +1,43 @@
 {
 "kpis": {
 "total": 2000,
-"known": 20,
-"avgScore": 0.8233,
-"states": 52,
-"types": 76
+"known": 36,
+"avgScore": 0.8703,
+"states": 50,
+"types": 67
 },
 "topTypes": [
 {
 "type": "Family Practice",
-"count": 393
+"count": 322
 },
 {
 "type": "Internal Medicine",
-"count": 191
-},
-{
-"type": "Anesthesiology",
-"count": 166
-},
-{
-"type": "Physician Assistant",
-"count": 103
-},
-{
-"type": "Clinical Laboratory",
-"count": 89
-},
-{
-"type": "Physical Medicine and Rehabilitation",
-"count": 89
+"count": 274
 },
 {
 "type": "Psychiatry",
-"count": 85
+"count": 173
 },
 {
 "type": "Nurse Practitioner",
-"count": 80
+"count": 130
+},
+{
+"type": "Clinical Laboratory",
+"count": 111
+},
+{
+"type": "Anesthesiology",
+"count": 108
+},
+{
+"type": "Physician Assistant",
+"count": 93
+},
+{
+"type": "Nephrology",
+"count": 73
 }
 ],
 "scoreHist": [
@@ -48,122 +48,122 @@
 0,
 0,
 0,
-758,
-1093,
-149
+0,
+1458,
+542
 ],
 "topProviders": [
 {
 "rank": 1,
-"type": "Urology",
-"state": "CA",
-"score": 0.9804,
-"known": 0,
-"payPerBene": 1741.0
-},
-{
-"rank": 2,
-"type": "Psychologist, Clinical",
-"state": "CA",
-"score": 0.9629,
-"known": 0,
-"payPerBene": 617.0
-},
-{
-"rank": 3,
-"type": "Chiropractic",
-"state": "NY",
-"score": 0.9623,
-"known": 0,
-"payPerBene": 16.0
-},
-{
-"rank": 4,
-"type": "Chiropractic",
-"state": "AL",
-"score": 0.9622,
-"known": 0,
-"payPerBene": 8.0
-},
-{
-"rank": 5,
-"type": "Psychologist, Clinical",
-"state": "CA",
-"score": 0.961,
-"known": 0,
-"payPerBene": 551.0
-},
-{
-"rank": 6,
-"type": "Pain Management",
-"state": "CO",
-"score": 0.9592,
-"known": 0,
-"payPerBene": 1103.0
-},
-{
-"rank": 7,
-"type": "Dermatology",
-"state": "DC",
-"score": 0.9588,
-"known": 0,
-"payPerBene": 4.0
-},
-{
-"rank": 8,
-"type": "Anesthesiology",
-"state": "PA",
-"score": 0.9587,
-"known": 0,
-"payPerBene": 965.0
-},
-{
-"rank": 9,
-"type": "Psychologist, Clinical",
-"state": "CA",
-"score": 0.9581,
-"known": 0,
-"payPerBene": 629.0
-},
-{
-"rank": 10,
 "type": "Licensed Clinical Social Worker",
 "state": "MI",
-"score": 0.9567,
+"score": 0.9899,
 "known": 0,
 "payPerBene": 2901.0
 },
 {
-"rank": 11,
-"type": "Pharmacy",
-"state": "OK",
-"score": 0.9552,
+"rank": 2,
+"type": "Licensed Clinical Social Worker",
+"state": "MI",
+"score": 0.9886,
 "known": 0,
-"payPerBene": 413.0
+"payPerBene": 1989.0
+},
+{
+"rank": 3,
+"type": "Clinical Laboratory",
+"state": "IL",
+"score": 0.986,
+"known": 0,
+"payPerBene": 93.0
+},
+{
+"rank": 4,
+"type": "Clinical Laboratory",
+"state": "IL",
+"score": 0.9845,
+"known": 0,
+"payPerBene": 97.0
+},
+{
+"rank": 5,
+"type": "Family Practice",
+"state": "OK",
+"score": 0.9841,
+"known": 0,
+"payPerBene": 156.0
+},
+{
+"rank": 6,
+"type": "Clinical Laboratory",
+"state": "TX",
+"score": 0.9841,
+"known": 0,
+"payPerBene": 94.0
+},
+{
+"rank": 7,
+"type": "Family Practice",
+"state": "FL",
+"score": 0.9818,
+"known": 0,
+"payPerBene": 5773.0
+},
+{
+"rank": 8,
+"type": "Licensed Clinical Social Worker",
+"state": "MI",
+"score": 0.9806,
+"known": 0,
+"payPerBene": 986.0
+},
+{
+"rank": 9,
+"type": "Clinical Laboratory",
+"state": "CA",
+"score": 0.98,
+"known": 0,
+"payPerBene": 201.0
+},
+{
+"rank": 10,
+"type": "Family Practice",
+"state": "LA",
+"score": 0.9796,
+"known": 0,
+"payPerBene": 186.0
+},
+{
+"rank": 11,
+"type": "Licensed Clinical Social Worker",
+"state": "MI",
+"score": 0.9783,
+"known": 0,
+"payPerBene": 659.0
 },
 {
 "rank": 12,
-"type": "Oral Surgery (Dentist only)",
-"state": "CA",
-"score": 0.9539,
+"type": "Family Practice",
+"state": "NJ",
+"score": 0.9772,
 "known": 0,
-"payPerBene": 7084.0
+"payPerBene": 2.0
 },
 {
 "rank": 13,
-"type": "Family Practice",
-"state": "IL",
-"score": 0.9535,
+"type": "Physician Assistant",
+"state": "CA",
+"score": 0.9765,
 "known": 0,
-"payPerBene": 4.0
+"payPerBene": 1434.0
 },
 {
 "rank": 14,
-"type": "Geriatric Medicine",
-"state": "CT",
-"score": 0.9508,
+"type": "Pharmacy",
+"state": "OK",
+"score": 0.9764,
 "known": 0,
-"payPerBene": 379.0
+"payPerBene": 413.0
 }
 ]
 }

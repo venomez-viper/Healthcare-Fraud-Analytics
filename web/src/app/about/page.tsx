@@ -22,7 +22,7 @@ export default function AboutPage() {
         <div className="mt-8 grid gap-5 md:grid-cols-2">
           {([
             {
-              n: "Akash",
+              n: "Akash Anipakalu Giridhar",
               r: "Data pipeline, modeling, web",
               href: "https://www.linkedin.com/in/akash-anipakalu-giridhar-1089011b1/",
             },

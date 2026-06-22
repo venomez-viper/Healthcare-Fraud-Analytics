@@ -67,7 +67,7 @@ export function SiteFooter() {
         ))}
       </div>
       <p className="mt-5 text-xs text-ash/80">
-        Built by Akash and Shruti Pingle · Real CMS + LEIE data · Not for clinical or
+        Built by Akash Anipakalu Giridhar and Shruti Pingle · Real CMS + LEIE data · Not for clinical or
         enforcement use
       </p>
     </footer>

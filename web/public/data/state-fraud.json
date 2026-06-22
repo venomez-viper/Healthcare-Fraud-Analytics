@@ -1,418 +1,402 @@
 [
 {
-"postal": "CA",
-"name": "California",
-"count": 216,
-"known": 7,
-"avgScore": 0.8254,
-"topType": "Internal Medicine"
+"postal": "TX",
+"name": "Texas",
+"count": 197,
+"known": 4,
+"avgScore": 0.8778,
+"topType": "Nephrology"
 },
 {
-"postal": "FL",
-"name": "Florida",
-"count": 154,
-"known": 0,
-"avgScore": 0.8328,
-"topType": "Family Practice"
+"postal": "CA",
+"name": "California",
+"count": 172,
+"known": 10,
+"avgScore": 0.8666,
+"topType": "Psychiatry"
 },
 {
 "postal": "MI",
 "name": "Michigan",
-"count": 152,
-"known": 4,
-"avgScore": 0.8245,
-"topType": "Family Practice"
-},
-{
-"postal": "TX",
-"name": "Texas",
-"count": 130,
+"count": 164,
 "known": 3,
-"avgScore": 0.8219,
+"avgScore": 0.884,
 "topType": "Family Practice"
-},
-{
-"postal": "NC",
-"name": "North Carolina",
-"count": 109,
-"known": 3,
-"avgScore": 0.8147,
-"topType": "Physician Assistant"
 },
 {
 "postal": "NY",
 "name": "New York",
-"count": 108,
+"count": 154,
 "known": 0,
-"avgScore": 0.8212,
+"avgScore": 0.8605,
+"topType": "Physical Therapist in Private Practice"
+},
+{
+"postal": "FL",
+"name": "Florida",
+"count": 145,
+"known": 0,
+"avgScore": 0.8643,
 "topType": "Family Practice"
 },
 {
 "postal": "IL",
 "name": "Illinois",
-"count": 84,
-"known": 0,
-"avgScore": 0.8283,
-"topType": "Family Practice"
+"count": 109,
+"known": 7,
+"avgScore": 0.8769,
+"topType": "Clinical Laboratory"
 },
 {
-"postal": "PA",
-"name": "Pennsylvania",
-"count": 80,
-"known": 0,
-"avgScore": 0.8247,
-"topType": "Family Practice"
-},
-{
-"postal": "TN",
-"name": "Tennessee",
-"count": 64,
-"known": 0,
-"avgScore": 0.8288,
-"topType": "Nurse Practitioner"
+"postal": "NC",
+"name": "North Carolina",
+"count": 101,
+"known": 7,
+"avgScore": 0.8695,
+"topType": "Physician Assistant"
 },
 {
 "postal": "GA",
 "name": "Georgia",
-"count": 60,
-"known": 1,
-"avgScore": 0.8233,
-"topType": "Anesthesiology"
-},
-{
-"postal": "MA",
-"name": "Massachusetts",
-"count": 59,
-"known": 1,
-"avgScore": 0.8274,
-"topType": "Certified Clinical Nurse Specialist"
-},
-{
-"postal": "OH",
-"name": "Ohio",
-"count": 58,
+"count": 79,
 "known": 0,
-"avgScore": 0.8364,
-"topType": "Family Practice"
+"avgScore": 0.8594,
+"topType": "Psychiatry"
 },
 {
-"postal": "NJ",
-"name": "New Jersey",
-"count": 50,
+"postal": "PA",
+"name": "Pennsylvania",
+"count": 67,
+"known": 1,
+"avgScore": 0.8817,
+"topType": "Psychiatry"
+},
+{
+"postal": "TN",
+"name": "Tennessee",
+"count": 62,
 "known": 0,
-"avgScore": 0.8073,
+"avgScore": 0.8676,
 "topType": "Internal Medicine"
 },
 {
 "postal": "LA",
 "name": "Louisiana",
-"count": 50,
+"count": 57,
 "known": 0,
-"avgScore": 0.8122,
+"avgScore": 0.8683,
+"topType": "Family Practice"
+},
+{
+"postal": "KY",
+"name": "Kentucky",
+"count": 56,
+"known": 0,
+"avgScore": 0.8672,
+"topType": "Internal Medicine"
+},
+{
+"postal": "OK",
+"name": "Oklahoma",
+"count": 48,
+"known": 0,
+"avgScore": 0.8812,
+"topType": "Family Practice"
+},
+{
+"postal": "OH",
+"name": "Ohio",
+"count": 43,
+"known": 4,
+"avgScore": 0.8676,
 "topType": "Family Practice"
 },
 {
 "postal": "MD",
 "name": "Maryland",
-"count": 48,
+"count": 39,
 "known": 0,
-"avgScore": 0.8272,
-"topType": "Interventional Pain Management"
-},
-{
-"postal": "KY",
-"name": "Kentucky",
-"count": 48,
-"known": 0,
-"avgScore": 0.822,
-"topType": "Family Practice"
+"avgScore": 0.8664,
+"topType": "Nurse Practitioner"
 },
 {
 "postal": "IN",
 "name": "Indiana",
-"count": 42,
+"count": 38,
 "known": 0,
-"avgScore": 0.8121,
+"avgScore": 0.8707,
+"topType": "Family Practice"
+},
+{
+"postal": "MA",
+"name": "Massachusetts",
+"count": 38,
+"known": 0,
+"avgScore": 0.8583,
+"topType": "Psychiatry"
+},
+{
+"postal": "NJ",
+"name": "New Jersey",
+"count": 34,
+"known": 0,
+"avgScore": 0.8549,
 "topType": "Family Practice"
 },
 {
 "postal": "MO",
 "name": "Missouri",
-"count": 36,
+"count": 33,
 "known": 0,
-"avgScore": 0.8258,
+"avgScore": 0.8764,
+"topType": "Psychiatry"
+},
+{
+"postal": "VA",
+"name": "Virginia",
+"count": 32,
+"known": 0,
+"avgScore": 0.8618,
+"topType": "Family Practice"
+},
+{
+"postal": "AZ",
+"name": "Arizona",
+"count": 29,
+"known": 0,
+"avgScore": 0.8643,
 "topType": "Internal Medicine"
 },
 {
 "postal": "AL",
 "name": "Alabama",
-"count": 35,
+"count": 26,
 "known": 0,
-"avgScore": 0.8341,
+"avgScore": 0.8832,
+"topType": "Internal Medicine"
+},
+{
+"postal": "WV",
+"name": "West Virginia",
+"count": 21,
+"known": 0,
+"avgScore": 0.891,
+"topType": "Family Practice"
+},
+{
+"postal": "SC",
+"name": "South Carolina",
+"count": 21,
+"known": 0,
+"avgScore": 0.8605,
+"topType": "Psychiatry"
+},
+{
+"postal": "CT",
+"name": "Connecticut",
+"count": 20,
+"known": 0,
+"avgScore": 0.8839,
 "topType": "Anesthesiology"
 },
 {
-"postal": "OK",
-"name": "Oklahoma",
-"count": 34,
+"postal": "WI",
+"name": "Wisconsin",
+"count": 19,
 "known": 0,
-"avgScore": 0.8307,
+"avgScore": 0.8571,
+"topType": "Chiropractic"
+},
+{
+"postal": "NV",
+"name": "Nevada",
+"count": 16,
+"known": 0,
+"avgScore": 0.9007,
+"topType": "General Surgery"
+},
+{
+"postal": "CO",
+"name": "Colorado",
+"count": 16,
+"known": 0,
+"avgScore": 0.874,
+"topType": "Clinical Laboratory"
+},
+{
+"postal": "WA",
+"name": "Washington",
+"count": 16,
+"known": 0,
+"avgScore": 0.8399,
+"topType": "Family Practice"
+},
+{
+"postal": "IA",
+"name": "Iowa",
+"count": 15,
+"known": 0,
+"avgScore": 0.8493,
+"topType": "Ophthalmology"
+},
+{
+"postal": "UT",
+"name": "Utah",
+"count": 14,
+"known": 0,
+"avgScore": 0.8923,
 "topType": "Anesthesiology"
 },
 {
 "postal": "MS",
 "name": "Mississippi",
-"count": 25,
-"known": 1,
-"avgScore": 0.8264,
-"topType": "Family Practice"
-},
-{
-"postal": "NV",
-"name": "Nevada",
-"count": 25,
+"count": 13,
 "known": 0,
-"avgScore": 0.8151,
-"topType": "Psychiatry"
-},
-{
-"postal": "MN",
-"name": "Minnesota",
-"count": 25,
-"known": 0,
-"avgScore": 0.8186,
-"topType": "Physician Assistant"
-},
-{
-"postal": "CO",
-"name": "Colorado",
-"count": 24,
-"known": 0,
-"avgScore": 0.8214,
-"topType": "Family Practice"
-},
-{
-"postal": "WI",
-"name": "Wisconsin",
-"count": 22,
-"known": 0,
-"avgScore": 0.8183,
-"topType": "Chiropractic"
-},
-{
-"postal": "WA",
-"name": "Washington",
-"count": 22,
-"known": 0,
-"avgScore": 0.8081,
-"topType": "Chiropractic"
-},
-{
-"postal": "AZ",
-"name": "Arizona",
-"count": 21,
-"known": 0,
-"avgScore": 0.8181,
-"topType": "Clinical Laboratory"
-},
-{
-"postal": "SC",
-"name": "South Carolina",
-"count": 20,
-"known": 0,
-"avgScore": 0.8115,
-"topType": "Family Practice"
-},
-{
-"postal": "WV",
-"name": "West Virginia",
-"count": 20,
-"known": 0,
-"avgScore": 0.829,
-"topType": "Family Practice"
-},
-{
-"postal": "VA",
-"name": "Virginia",
-"count": 19,
-"known": 0,
-"avgScore": 0.8131,
-"topType": "Physical Medicine and Rehabilitation"
-},
-{
-"postal": "UT",
-"name": "Utah",
-"count": 18,
-"known": 0,
-"avgScore": 0.8162,
-"topType": "Physical Medicine and Rehabilitation"
-},
-{
-"postal": "OR",
-"name": "Oregon",
-"count": 16,
-"known": 0,
-"avgScore": 0.8254,
-"topType": "Emergency Medicine"
-},
-{
-"postal": "CT",
-"name": "Connecticut",
-"count": 12,
-"known": 0,
-"avgScore": 0.8231,
-"topType": "Anesthesiology"
-},
-{
-"postal": "HI",
-"name": "Hawaii",
-"count": 12,
-"known": 0,
-"avgScore": 0.8622,
-"topType": "Clinical Laboratory"
+"avgScore": 0.8715,
+"topType": "Physical Therapist in Private Practice"
 },
 {
 "postal": "AR",
 "name": "Arkansas",
-"count": 12,
+"count": 13,
 "known": 0,
-"avgScore": 0.8186,
-"topType": "Family Practice"
+"avgScore": 0.8739,
+"topType": "Cardiology"
 },
 {
-"postal": "ME",
-"name": "Maine",
-"count": 11,
+"postal": "MN",
+"name": "Minnesota",
+"count": 13,
 "known": 0,
-"avgScore": 0.8155,
-"topType": "Clinical Laboratory"
+"avgScore": 0.8425,
+"topType": "Gastroenterology"
 },
 {
-"postal": "DE",
-"name": "Delaware",
-"count": 11,
+"postal": "OR",
+"name": "Oregon",
+"count": 10,
 "known": 0,
-"avgScore": 0.8033,
-"topType": "Anesthesiology"
+"avgScore": 0.8815,
+"topType": "Ophthalmology"
 },
 {
 "postal": "KS",
 "name": "Kansas",
-"count": 10,
+"count": 9,
 "known": 0,
-"avgScore": 0.8235,
-"topType": "Internal Medicine"
+"avgScore": 0.8689,
+"topType": "Family Practice"
 },
 {
-"postal": "NM",
-"name": "New Mexico",
+"postal": "DE",
+"name": "Delaware",
 "count": 7,
 "known": 0,
-"avgScore": 0.7893,
-"topType": "Emergency Medicine"
+"avgScore": 0.8904,
+"topType": "Internal Medicine"
 },
 {
 "postal": "PR",
 "name": "Puerto Rico",
 "count": 7,
 "known": 0,
-"avgScore": 0.7964,
-"topType": "Family Practice"
+"avgScore": 0.8711,
+"topType": "Internal Medicine"
 },
 {
-"postal": "NH",
-"name": "New Hampshire",
-"count": 6,
+"postal": "ME",
+"name": "Maine",
+"count": 7,
 "known": 0,
-"avgScore": 0.7899,
-"topType": "Physician Assistant"
-},
-{
-"postal": "IA",
-"name": "Iowa",
-"count": 6,
-"known": 0,
-"avgScore": 0.8013,
-"topType": "Certified Registered Nurse Anesthetist (CRNA)"
+"avgScore": 0.8615,
+"topType": "Clinical Laboratory"
 },
 {
 "postal": "DC",
 "name": "District of Columbia",
-"count": 5,
+"count": 6,
 "known": 0,
-"avgScore": 0.8547,
-"topType": "Dermatology"
+"avgScore": 0.8508,
+"topType": "Nurse Practitioner"
 },
 {
 "postal": "NE",
 "name": "Nebraska",
 "count": 5,
 "known": 0,
-"avgScore": 0.803,
-"topType": "Ambulance Service Provider"
-},
-{
-"postal": "MT",
-"name": "Montana",
-"count": 4,
-"known": 0,
-"avgScore": 0.8759,
-"topType": "Chiropractic"
-},
-{
-"postal": "RI",
-"name": "Rhode Island",
-"count": 4,
-"known": 0,
-"avgScore": 0.8759,
-"topType": "Internal Medicine"
-},
-{
-"postal": "AK",
-"name": "Alaska",
-"count": 4,
-"known": 0,
-"avgScore": 0.7833,
-"topType": "Family Practice"
-},
-{
-"postal": "WY",
-"name": "Wyoming",
-"count": 3,
-"known": 0,
-"avgScore": 0.8362,
+"avgScore": 0.8551,
 "topType": "Nurse Practitioner"
 },
 {
-"postal": "ND",
-"name": "North Dakota",
-"count": 2,
+"postal": "NM",
+"name": "New Mexico",
+"count": 5,
 "known": 0,
-"avgScore": 0.8276,
-"topType": "Physician Assistant"
+"avgScore": 0.8794,
+"topType": "Family Practice"
 },
 {
-"postal": "GU",
-"name": "GU",
-"count": 2,
+"postal": "HI",
+"name": "Hawaii",
+"count": 4,
 "known": 0,
-"avgScore": 0.8226,
-"topType": "Interventional Radiology"
+"avgScore": 0.8904,
+"topType": "Podiatry"
 },
 {
 "postal": "VT",
 "name": "Vermont",
-"count": 2,
+"count": 4,
 "known": 0,
-"avgScore": 0.787,
-"topType": "Nurse Practitioner"
+"avgScore": 0.8732,
+"topType": "Clinical Laboratory"
+},
+{
+"postal": "SD",
+"name": "South Dakota",
+"count": 4,
+"known": 0,
+"avgScore": 0.8379,
+"topType": "Rheumatology"
+},
+{
+"postal": "NH",
+"name": "New Hampshire",
+"count": 3,
+"known": 0,
+"avgScore": 0.901,
+"topType": "Family Practice"
 },
 {
 "postal": "ID",
 "name": "Idaho",
+"count": 3,
+"known": 0,
+"avgScore": 0.8409,
+"topType": "Nurse Practitioner"
+},
+{
+"postal": "RI",
+"name": "Rhode Island",
+"count": 3,
+"known": 0,
+"avgScore": 0.8524,
+"topType": "Internal Medicine"
+},
+{
+"postal": "MT",
+"name": "Montana",
+"count": 2,
+"known": 0,
+"avgScore": 0.8531,
+"topType": "Physician Assistant"
+},
+{
+"postal": "ND",
+"name": "North Dakota",
 "count": 1,
 "known": 0,
-"avgScore": 0.7754,
-"topType": "Licensed Clinical Social Worker"
+"avgScore": 0.8221,
+"topType": "Physical Medicine and Rehabilitation"
 }
 ]
