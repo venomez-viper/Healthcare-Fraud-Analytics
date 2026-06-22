@@ -1,0 +1,169 @@
+{
+"kpis": {
+"total": 2000,
+"known": 20,
+"avgScore": 0.8233,
+"states": 52,
+"types": 76
+},
+"topTypes": [
+{
+"type": "Family Practice",
+"count": 393
+},
+{
+"type": "Internal Medicine",
+"count": 191
+},
+{
+"type": "Anesthesiology",
+"count": 166
+},
+{
+"type": "Physician Assistant",
+"count": 103
+},
+{
+"type": "Clinical Laboratory",
+"count": 89
+},
+{
+"type": "Physical Medicine and Rehabilitation",
+"count": 89
+},
+{
+"type": "Psychiatry",
+"count": 85
+},
+{
+"type": "Nurse Practitioner",
+"count": 80
+}
+],
+"scoreHist": [
+0,
+0,
+0,
+0,
+0,
+0,
+0,
+758,
+1093,
+149
+],
+"topProviders": [
+{
+"rank": 1,
+"type": "Urology",
+"state": "CA",
+"score": 0.9804,
+"known": 0,
+"payPerBene": 1741.0
+},
+{
+"rank": 2,
+"type": "Psychologist, Clinical",
+"state": "CA",
+"score": 0.9629,
+"known": 0,
+"payPerBene": 617.0
+},
+{
+"rank": 3,
+"type": "Chiropractic",
+"state": "NY",
+"score": 0.9623,
+"known": 0,
+"payPerBene": 16.0
+},
+{
+"rank": 4,
+"type": "Chiropractic",
+"state": "AL",
+"score": 0.9622,
+"known": 0,
+"payPerBene": 8.0
+},
+{
+"rank": 5,
+"type": "Psychologist, Clinical",
+"state": "CA",
+"score": 0.961,
+"known": 0,
+"payPerBene": 551.0
+},
+{
+"rank": 6,
+"type": "Pain Management",
+"state": "CO",
+"score": 0.9592,
+"known": 0,
+"payPerBene": 1103.0
+},
+{
+"rank": 7,
+"type": "Dermatology",
+"state": "DC",
+"score": 0.9588,
+"known": 0,
+"payPerBene": 4.0
+},
+{
+"rank": 8,
+"type": "Anesthesiology",
+"state": "PA",
+"score": 0.9587,
+"known": 0,
+"payPerBene": 965.0
+},
+{
+"rank": 9,
+"type": "Psychologist, Clinical",
+"state": "CA",
+"score": 0.9581,
+"known": 0,
+"payPerBene": 629.0
+},
+{
+"rank": 10,
+"type": "Licensed Clinical Social Worker",
+"state": "MI",
+"score": 0.9567,
+"known": 0,
+"payPerBene": 2901.0
+},
+{
+"rank": 11,
+"type": "Pharmacy",
+"state": "OK",
+"score": 0.9552,
+"known": 0,
+"payPerBene": 413.0
+},
+{
+"rank": 12,
+"type": "Oral Surgery (Dentist only)",
+"state": "CA",
+"score": 0.9539,
+"known": 0,
+"payPerBene": 7084.0
+},
+{
+"rank": 13,
+"type": "Family Practice",
+"state": "IL",
+"score": 0.9535,
+"known": 0,
+"payPerBene": 4.0
+},
+{
+"rank": 14,
+"type": "Geriatric Medicine",
+"state": "CT",
+"score": 0.9508,
+"known": 0,
+"payPerBene": 379.0
+}
+]
+}
