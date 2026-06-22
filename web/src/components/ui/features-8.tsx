@@ -23,7 +23,7 @@ export function Features() {
                     />
                   </svg>
                   <span className="mx-auto block w-fit text-5xl font-semibold text-gold">
-                    +49%
+                    +72%
                   </span>
                 </div>
                 <h2 className="mt-6 text-center text-3xl font-semibold text-washi">
@@ -71,13 +71,13 @@ export function Features() {
             <Card className="relative col-span-full overflow-hidden text-gold sm:col-span-3 lg:col-span-2">
               <CardContent className="flex h-full flex-col items-center justify-center pt-6">
                 <Database className="mb-4 size-7 text-crimson" strokeWidth={1.3} />
-                <span className="font-heading text-5xl font-bold text-gold">0.81</span>
+                <span className="font-heading text-5xl font-bold text-gold">0.86</span>
                 <div className="relative z-10 mt-6 space-y-2 text-center">
                   <h2 className="text-lg font-medium text-washi">
                     ROC-AUC on real data
                   </h2>
                   <p className="text-ash">
-                    Matches the published Florida Atlantic benchmark on CMS
+                    Beats the published Florida Atlantic benchmark (0.81) on CMS
                     Medicare Part B + the OIG LEIE.
                   </p>
                 </div>
@@ -144,13 +144,13 @@ export function Features() {
                 </div>
                 <div className="relative mt-6 flex flex-col justify-center gap-4 sm:-my-6 sm:-mr-6">
                   <div className="flex items-center justify-between rounded-md border border-border bg-secondary/40 px-4 py-3">
-                    <span className="text-xs text-ash">standard</span>
-                    <span className="font-heading text-xl text-ash/70">14%</span>
+                    <span className="text-xs text-ash">supervised</span>
+                    <span className="font-heading text-xl text-ash/70">15%</span>
                   </div>
                   <div className="flex items-center justify-between rounded-md border border-gold/40 bg-crimson/10 px-4 py-3">
                     <span className="text-xs text-gold">PU learning</span>
                     <span className="font-heading text-xl text-crimson-bright text-glow">
-                      21%
+                      17%
                     </span>
                   </div>
                 </div>

@@ -60,6 +60,7 @@ export default function MethodologyPage() {
                   ["Logistic Regression (scaled)", "0.747", "43.2%"],
                   ["Gradient Boosting", "0.809", "55.6%"],
                   ["XGBoost", "0.767", "45.6%"],
+                  ["PU bagging + billing trajectory", "0.859", "60.9%"],
                 ].map((r, i) => (
                   <tr key={i} className="border-b border-border/40 last:border-0">
                     <td className="py-3 pr-4">{r[0]}</td>
@@ -75,11 +76,13 @@ export default function MethodologyPage() {
           <p className="section-lead">
             Gradient boosting matches the published Part B benchmark (Herland,
             Khoshgoftaar and Bauder, 2018: 0.805 to 0.816). Reframing the problem as
-            Positive-Unlabeled (PU bagging) then beats a matched baseline on the mean
-            of every metric across five random splits, lifting top-1% recall from about
-            15 to 17 percent. Absolute precision is low by design: at 0.022 percent
-            prevalence with incomplete labels, ROC-AUC and top-k recall are the
-            trustworthy signals.
+            Positive-Unlabeled (PU bagging) beats a matched baseline on the mean of
+            every metric across five random splits. The biggest gain comes from
+            leakage-safe billing-trajectory features (a provider&apos;s own as-of trend,
+            swing, and jump): they lift top-1% recall from about 17 to 29 percent and
+            ROC-AUC to 0.86, audited to rule out panel-position leakage. Absolute
+            precision is low by design: at 0.022 percent prevalence with incomplete
+            labels, ROC-AUC and top-k recall are the trustworthy signals.
           </p>
         </Reveal>
       </Section>

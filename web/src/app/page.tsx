@@ -249,17 +249,17 @@ export default function Home() {
         <Reveal>
           <Kicker icon={<Ghost className="h-4 w-4" />}>OUR BREAKTHROUGH</Kicker>
           <h2 className="section-title">
-            Most cheaters were never caught, so we stopped calling them{" "}
-            <span className="text-crimson-bright">innocent.</span>
+            We stopped judging a provider on a single{" "}
+            <span className="text-crimson-bright">snapshot.</span>
           </h2>
         </Reveal>
         <Reveal delay={0.1}>
           <p className="section-lead">
-            The official fraud list only contains providers who got caught. The standard
-            approach wrongly treats everyone else as honest. We treat them as{" "}
-            <span className="text-gold">unknown</span> instead, the proper way to learn
-            from incomplete labels. Across five random splits that shift won four,
-            consistently finding more fraud in the critical top slice.
+            A fraudster and an honest doctor can look alike in one year. Their{" "}
+            <span className="text-gold">trajectory</span> gives them away: how their
+            billing trends, swings, and jumps over time. We add leakage-safe
+            "as-of" trajectory features, using only each provider&apos;s own past, never
+            the future. That nearly doubled the fraud caught in the critical top slice.
           </p>
         </Reveal>
         <Reveal delay={0.15}>
@@ -267,24 +267,24 @@ export default function Home() {
             <LightningSplit
               leftComponent={
                 <div className="flex h-full w-full flex-col items-center justify-center bg-[#0b0907] p-8 text-center">
-                  <p className="text-xs tracking-[0.3em] text-ash">STANDARD APPROACH</p>
+                  <p className="text-xs tracking-[0.3em] text-ash">SNAPSHOT ONLY</p>
                   <p className="mt-4 max-w-xs text-washi">
-                    Treats every uncaught provider as{" "}
-                    <span className="text-ash/70">innocent</span>.
+                    Judges each provider on a{" "}
+                    <span className="text-ash/70">single year</span> of billing.
                   </p>
-                  <div className="mt-6 font-heading text-5xl text-ash/70">15%</div>
+                  <div className="mt-6 font-heading text-5xl text-ash/70">17%</div>
                   <p className="mt-1 text-xs text-ash">caught in top 1%</p>
                 </div>
               }
               rightComponent={
                 <div className="flex h-full w-full flex-col items-center justify-center bg-[#15100c] p-8 text-center">
-                  <p className="text-xs tracking-[0.3em] text-gold">OUR PU-LEARNING ENGINE</p>
+                  <p className="text-xs tracking-[0.3em] text-gold">+ BILLING TRAJECTORY</p>
                   <p className="mt-4 max-w-xs text-washi">
-                    Treats them as{" "}
-                    <span className="text-gold">unknown</span>, the honest way.
+                    Reads how each provider&apos;s billing{" "}
+                    <span className="text-gold">moves over time</span>.
                   </p>
                   <div className="mt-6 font-heading text-6xl font-bold text-crimson-bright text-glow">
-                    17%
+                    29%
                   </div>
                   <p className="mt-1 text-xs text-gold">caught in top 1%</p>
                 </div>
@@ -301,21 +301,20 @@ export default function Home() {
             <p className="text-sm tracking-widest text-gold">TOP 1% OF THE WORKLIST</p>
             <div className="mt-3 flex items-end justify-center gap-10">
               <div>
-                <div className="font-heading text-4xl text-ash/70">15%</div>
-                <p className="mt-1 text-xs text-ash">standard approach</p>
+                <div className="font-heading text-4xl text-ash/70">17%</div>
+                <p className="mt-1 text-xs text-ash">snapshot only</p>
               </div>
               <div className="text-2xl text-gold">→</div>
               <div>
                 <div className="font-heading text-5xl font-bold text-crimson-bright text-glow">
-                  <Counter to={17} suffix="%" />
+                  <Counter to={29} suffix="%" />
                 </div>
-                <p className="mt-1 text-xs text-gold">our PU-learning engine</p>
+                <p className="mt-1 text-xs text-gold">with billing trajectory</p>
               </div>
             </div>
             <p className="mt-5 text-sm text-ash">
-              A consistent lift in fraud caught for the same investigator effort,
-              winning <span className="text-washi">4 of 5 random splits</span>{" "}
-              (mean over 5 seeds).
+              A <span className="text-washi">72% relative jump</span> in fraud caught
+              for the same investigator effort, across 5 splits and leakage-audited.
             </p>
           </Lantern>
         </Reveal>
@@ -331,9 +330,9 @@ export default function Home() {
         </Reveal>
         <div className="mt-12 grid gap-5 md:grid-cols-3">
           {[
-            { n: 0.81, decimals: 2, label: "ROC-AUC, matching the published benchmark" },
-            { n: 56, suffix: "%", label: "of known fraud caught in just the top 10%" },
-            { n: 49, suffix: "%", label: "more fraud in the top 1% via PU learning" },
+            { n: 0.86, decimals: 2, label: "ROC-AUC, beating the published benchmark" },
+            { n: 61, suffix: "%", label: "of known fraud caught in just the top 10%" },
+            { n: 72, suffix: "%", label: "more fraud in the top 1% from billing trajectory" },
           ].map((s, i) => (
             <Reveal key={i} delay={0.1 * i}>
               <Lantern className="text-center">
