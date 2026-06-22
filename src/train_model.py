@@ -48,6 +48,10 @@ DROP = {
     "npi", "last_or_org_name", "first_name",       # identifiers
     "entity_code", "state", "provider_type", "medicare_participating",  # categoricals
     "year",                                         # temporal label gating -> drop
+    "traj_years",                                   # position artifact: positives are gated
+                                                    # year<=excl_year, so years-so-far leaks
+                                                    # panel position, not behaviour. Ablation:
+                                                    # dropping it keeps the full temporal lift.
 }
 
 

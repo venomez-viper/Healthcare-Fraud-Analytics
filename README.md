@@ -137,8 +137,9 @@ if modest, gain). We report the robust multi-seed number, not the lucky single s
 
 **Unsupervised anomaly track (Isolation Forest).** A label-free detector that flags
 providers who look bizarre versus peers. With **zero labels** it catches **32% of
-fraud in the top 10%** (ROC-AUC 0.68). Useful as a standalone second opinion; a naive
-equal blend with the supervised ranker hurts (0.79 < 0.82), so fusion must be weighted.
+fraud in the top 10%** (ROC-AUC 0.68). Useful as a standalone second opinion, but see
+the weighted-fusion result below: once the trajectory features are in, even a tuned
+blend does not improve the prioritised worklist.
 
 **Explainability (SHAP).** Every flag carries plain-English reasons. The top global
 drivers are the **charge-to-payment ratio** and **services per beneficiary**, classic
@@ -149,8 +150,37 @@ over-billing and over-servicing signals (grounds the model in the right behaviou
 vs 0.82). The lesson: with only 944 positives on tabular data, gradient-boosted trees
 beat deep learning, so **PU bagging on trees remains our best approach**.
 
-**Next:** temporal trajectory features for the tree model, weighted two-track fusion,
-and an LLM investigator agent for richer per-provider writeups.
+**Temporal trajectory features (new headline result).** Exploiting the 2019-2023
+panel, we add **leakage-safe, as-of** trajectory features per provider-year: the
+least-squares slope, coefficient of variation, and largest year-over-year jump of
+payment, services, beneficiaries, etc., each computed from *only that provider's own
+billing up to and including that year* (never the future). Added to the PU-bagging
+tree model, over the same **5 grouped splits** they lift:
+
+| metric | behavioural only | + trajectory | lift |
+|---|---|---|---|
+| top-1% recall | 0.169 | **0.290** | **+72%** |
+| top-5% recall | 0.374 | **0.503** | +0.129 |
+| top-10% recall | 0.499 | **0.609** | +0.110 |
+| ROC-AUC | 0.807 | **0.859** | +0.051 |
+
+PU still wins 4/5 seeds. **We audited this large jump for leakage.** One feature,
+`traj_years` (years billed so far), separated the classes as a *panel-position*
+artifact: positives are gated to years at/before the exclusion year, so years-so-far
+leaks where a row sits in the panel, not behaviour (it scored solo ROC-AUC 0.72). We
+**dropped it**, and an ablation confirmed the lift *survives without it* (recall@1%
+0.31 -> 0.33 on the audit seed). The real signal is the behavioural shape, led by the
+**Medicare-payment trajectory slope** and **pay-per-beneficiary slope**. The table
+above is the post-audit, defensible number. See `src/diag_temporal_leakage.py`.
+
+**Weighted two-track fusion (honest null).** We swept the anomaly weight (0.00 to
+0.50) on rank-normalised scores. Once the supervised ranker carries the trajectory
+features, **no weighted blend with the Isolation Forest beats supervised-alone on
+top-1%** (best weight = 0.00). The label-free track remains a useful independent
+second opinion; it just does not improve the prioritised queue.
+
+**Next:** an LLM investigator agent for richer per-provider writeups, and GNN
+shared-patient ring detection.
 
 ## For collaborators (getting the data)
 
@@ -173,7 +203,8 @@ python src/build_features.py --in data/processed/provider_year_panel_2019_2023_c
 | D. Evaluation | Precision at top-k (1/5/10%) primary; grouped split; multi-seed robustness. | Done |
 | E. Explainability | SHAP global importance + per-provider "why flagged" reasons. | Done |
 | F. Risk Explorer | Ranked queue + per-provider detail + explanations (web app, live). | Live |
-| G. Advanced | Temporal trajectory features, weighted fusion, LLM investigator agent, GNN rings. | In progress |
+| G. Advanced | Temporal trajectory features (**+72% top-1% recall, leakage-audited**); weighted fusion (tested, null). | Done |
+| H. Frontier | LLM investigator agent, GNN shared-patient ring detection. | Planned |
 
 ## Repository contents
 

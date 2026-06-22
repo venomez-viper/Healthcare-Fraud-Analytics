@@ -73,12 +73,41 @@ def main() -> int:
     sup = run_bags(pos, unl, feats, med, Xte, args.bags, args.neg_ratio, args.seed)
     metrics.append(evaluate("Supervised PU bagging", yte, sup, total_fraud))
 
-    # 3. Two-track combination: average of the rank-normalised scores.
-    combo = rankdata(anomaly) + rankdata(sup)
-    metrics.append(evaluate("Two-track combo (anomaly + supervised)", yte, combo, total_fraud))
+    # 3. WEIGHTED two-track fusion. Equal blend hurt (the supervised arm is far
+    #    stronger), so sweep the anomaly weight on rank-normalised scores and find
+    #    whether ANY weighting beats supervised-alone on top-k. w=0 is supervised
+    #    only, w=1 is anomaly only.
+    rs = rankdata(sup) / len(sup)
+    ra = rankdata(anomaly) / len(anomaly)
+    print("\n=== weighted fusion sweep  combo = (1-w)*supervised + w*anomaly ===")
+    sweep = []
+    for w in [round(0.05 * i, 2) for i in range(0, 11)]:  # 0.00 .. 0.50
+        combo = (1 - w) * rs + w * ra
+        res = evaluate(f"fusion w_anom={w:.2f}", yte, combo, total_fraud)
+        res["w_anom"] = w
+        sweep.append(res)
+        metrics.append(res)
+
+    base = next(s for s in sweep if s["w_anom"] == 0.0)  # supervised only
+    best = max(sweep, key=lambda s: (s["recall_at_1pct"], s["recall_at_10pct"]))
+    print("\n" + "=" * 60)
+    print("WEIGHTED FUSION RESULT")
+    print("=" * 60)
+    print(f"supervised only  (w=0.00): recall@1% {base['recall_at_1pct']:.4f} | "
+          f"@10% {base['recall_at_10pct']:.4f} | ROC {base['roc_auc']:.4f}")
+    print(f"best fusion       (w={best['w_anom']:.2f}): recall@1% {best['recall_at_1pct']:.4f} | "
+          f"@10% {best['recall_at_10pct']:.4f} | ROC {best['roc_auc']:.4f}")
+    lift = best["recall_at_1pct"] - base["recall_at_1pct"]
+    verdict = (f"weighted fusion HELPS (+{lift:.4f} recall@1% at w={best['w_anom']:.2f})"
+               if best["w_anom"] > 0 and lift > 0
+               else "no weighted blend beats supervised alone on top-1%")
+    print(f"verdict: {verdict}")
 
     MODEL_DIR.mkdir(exist_ok=True)
-    (MODEL_DIR / "anomaly_metrics.json").write_text(json.dumps(metrics, indent=2))
+    out = {"seed": args.seed, "verdict": verdict,
+           "supervised_only": base, "best_fusion": best, "sweep": sweep,
+           "iso_forest": metrics[0]}
+    (MODEL_DIR / "anomaly_metrics.json").write_text(json.dumps(out, indent=2))
     print(f"\nsaved metrics to {MODEL_DIR / 'anomaly_metrics.json'}")
     return 0
 
